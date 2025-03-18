@@ -27,13 +27,16 @@ function App() {
       });
   }, [apiRoute]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
   return (
     <div>
       <h1>Backend Status:</h1>
-      <p>{status}</p>
+      {loading ? (
+        <p>Waiting...</p>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : (
+        <p>Message from backend: {status}</p>
+      )}
     </div>
   );
 }
