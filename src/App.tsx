@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
-  const [status, setStatus] = useState<string>('');
+  const [status, setStatus] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const apiRoute = import.meta.env.VITE_API_ROUTE || 'http://localhost:8080';
+  const apiRoute = import.meta.env.VITE_API_ROUTE || "http://localhost:8080";
 
   useEffect(() => {
     fetch(`${apiRoute}/hello`)
@@ -27,18 +28,7 @@ function App() {
       });
   }, [apiRoute]);
 
-  return (
-    <div>
-      <h1>Backend Status:</h1>
-      {loading ? (
-        <p>Waiting...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <p>Message from backend: {status}</p>
-      )}
-    </div>
-  );
+  return <AppRouter />;
 }
 
-export default App
+export default App;
