@@ -1,0 +1,21 @@
+interface CardProps {
+  imageUrl: string;
+  title: string;
+  secondaryText: string;
+}
+
+function Card({ imageUrl, title, secondaryText }: CardProps) {
+  return (
+    <div className="rounded-xl shadow-md bg-white w-full p-4">
+      <img
+        src={imageUrl}
+        alt={title}
+        className="w-full h-64 object-cover rounded-xl mb-4"
+      />
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="text-sm text-gray-500">{secondaryText}</p>
+    </div>
+  );
+}
+
+export default Card;
