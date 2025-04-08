@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
 
@@ -51,17 +52,17 @@ function CardList<T>({
             type="button"
             onClick={() => onPageChange(page - 1)}
             disabled={!hasPrev}
-            className="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
+            className="w-12 h-12 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
           >
-            Prev
+            <ArrowLeft />
           </button>
           <button
             type="button"
             onClick={() => onPageChange(page + 1)}
             disabled={!hasNext}
-            className="px-3 py-1 rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
+            className="w-12 h-12 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
           >
-            Next
+            <ArrowRight />
           </button>
         </div>
       </div>
