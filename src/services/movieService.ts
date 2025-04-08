@@ -22,3 +22,24 @@ export const getCurrentMovies = async (
     throw error;
   }
 };
+
+export const getUpcomingMovies = async (
+  page: number,
+  pageSize: number
+): Promise<PaginatedResponse<Movie>> => {
+  try {
+    const response = await axiosInstance.get<PaginatedResponse<Movie>>(
+      "/api/movies/upcoming",
+      {
+        params: {
+          page: page - 1,
+          size: pageSize,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching current movies:", error);
+    throw error;
+  }
+};
