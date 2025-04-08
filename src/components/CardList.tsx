@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 interface CardListProps<T> {
   title: string;
@@ -17,7 +18,7 @@ export function CardList<T>({
   items,
   total,
   page,
-  pageSize = 4,
+  pageSize,
   onPageChange,
   renderItem,
 }: CardListProps<T>) {
@@ -30,9 +31,12 @@ export function CardList<T>({
     <div className="space-y-4 px-14 my-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">{title}</h2>
-        <a href={seeAllLink} className="text-sm text-secondary hover:underline">
+        <Link
+          to={seeAllLink}
+          className="text-sm text-secondary hover:underline"
+        >
           See All
-        </a>
+        </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {items.map(renderItem)}
@@ -51,7 +55,6 @@ export function CardList<T>({
           >
             Prev
           </button>
-
           <button
             type="button"
             onClick={() => onPageChange(page + 1)}
