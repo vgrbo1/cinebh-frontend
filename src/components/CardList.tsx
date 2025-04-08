@@ -12,7 +12,7 @@ interface CardListProps<T> {
   renderItem: (item: T) => React.ReactNode;
 }
 
-export function CardList<T>({
+function CardList<T>({
   title,
   seeAllLink,
   items,
@@ -68,3 +68,5 @@ export function CardList<T>({
     </div>
   );
 }
+
+export default CardList;

@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { VenueListSection } from "../components/VenueList";
+import VenueListSection from "../components/VenueList";
 
 function Home() {
   return (
