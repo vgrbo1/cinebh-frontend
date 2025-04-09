@@ -8,7 +8,7 @@ function AppRouter() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/pricing" element={<Pricing />} />
+      <Route path="/tickets" element={<Pricing />} />
     </Routes>
   );
 }
