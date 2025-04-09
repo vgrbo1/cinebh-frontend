@@ -1,4 +1,6 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router";
 
@@ -54,7 +56,7 @@ function CardList<T>({
             disabled={!hasPrev}
             className="w-12 h-12 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
           >
-            <ArrowLeft />
+            <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <button
             type="button"
@@ -62,7 +64,7 @@ function CardList<T>({
             disabled={!hasNext}
             className="w-12 h-12 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
           >
-            <ArrowRight />
+            <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
       </div>
