@@ -1,0 +1,37 @@
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { getVenues } from "../services/venueService";
+
+function VenueButtonRow() {
+  const page = 1;
+  const pageSize = 6;
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["venues"],
+    queryFn: () => getVenues(page, pageSize),
+    placeholderData: keepPreviousData,
+  });
+
+  if (isLoading || !data) {
+    return <div>Loading venues...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading venues</div>;
+  }
+
+  return (
+    <div className="w-full px-14 mt-6 flex justify-center">
+      <div className="flex flex-wrap gap-4 font-bold font-primary">
+        {data?.content.map((venue) => (
+          <button
+            key={venue.id}
+            className="w-fit rounded px-4 py-2  bg-white text-gray-400 border border-gray-400"
+          >
+            {venue.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default VenueButtonRow;
