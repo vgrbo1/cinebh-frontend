@@ -21,11 +21,11 @@ function Carousel() {
   }, [data]);
 
   if (isLoading || !data) {
-    return <div>Loading venues...</div>;
+    return <div>Loading carousel movies...</div>;
   }
 
   if (isError) {
-    return <div>Error loading venues</div>;
+    return <div>Error loading carousel movies</div>;
   }
 
   return (
