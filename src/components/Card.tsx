@@ -12,7 +12,7 @@ function Card({ imageUrl, title, secondaryText }: CardProps) {
         alt={title}
         className="w-full aspect-square object-cover rounded-xl mb-4"
       />
-      <h3 className="text-lg font-semibold">{title}</h3>
+      <h3 className="text-lg text-primary font-semibold">{title}</h3>
       <p className="text-sm text-gray-500">{secondaryText}</p>
     </div>
   );
