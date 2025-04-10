@@ -54,7 +54,7 @@ function CardList<T>({
             type="button"
             onClick={() => onPageChange(page - 1)}
             disabled={!hasPrev}
-            className="w-12 h-12 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
+            className="p-4 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
@@ -62,7 +62,7 @@ function CardList<T>({
             type="button"
             onClick={() => onPageChange(page + 1)}
             disabled={!hasNext}
-            className="w-12 h-12 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
+            className="p-4 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
           >
             <FontAwesomeIcon icon={faArrowRight} />
           </button>
