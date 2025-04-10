@@ -4,7 +4,7 @@ import CardList from "../components/CardList";
 import { getUpcomingMovies } from "../services/movieService";
 import MovieCard from "./MovieCard";
 
-function UpcomingMovieListSection() {
+function UpcomingMovieList() {
   const [page, setPage] = useState(1);
   const pageSize = 4;
   const { data, isLoading, isError } = useQuery({
@@ -35,4 +35,4 @@ function UpcomingMovieListSection() {
   );
 }
 
-export default UpcomingMovieListSection;
+export default UpcomingMovieList;

@@ -1,18 +1,18 @@
 import Carousel from "../components/Carousel";
-import CurrentMovieListSection from "../components/CurrentMovieList";
+import CurrentMovieList from "../components/CurrentMovieList";
 import Layout from "../components/Layout";
-import UpcomingMovieListSection from "../components/UpcomingMovieList";
+import UpcomingMovieList from "../components/UpcomingMovieList";
 import VenueButtonRow from "../components/VenueButtonRow";
-import VenueListSection from "../components/VenueList";
+import VenueList from "../components/VenueList";
 
 function Home() {
   return (
     <Layout>
       <Carousel />
       <VenueButtonRow />
-      <CurrentMovieListSection />
-      <UpcomingMovieListSection />
-      <VenueListSection />
+      <CurrentMovieList />
+      <UpcomingMovieList />
+      <VenueList />
     </Layout>
   );
 }

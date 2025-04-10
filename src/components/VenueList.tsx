@@ -4,7 +4,7 @@ import CardList from "../components/CardList";
 import { getVenues } from "../services/venueService";
 import VenueCard from "./VenueCard";
 
-function VenueListSection() {
+function VenueList() {
   const [page, setPage] = useState(1);
   const pageSize = 4;
   const { data, isLoading, isError } = useQuery({
@@ -35,4 +35,4 @@ function VenueListSection() {
   );
 }
 
-export default VenueListSection;
+export default VenueList;

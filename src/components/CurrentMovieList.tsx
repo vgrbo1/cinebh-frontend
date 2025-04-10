@@ -4,7 +4,7 @@ import CardList from "../components/CardList";
 import { getCurrentMovies } from "../services/movieService";
 import MovieCard from "./MovieCard";
 
-function CurrentMovieListSection() {
+function CurrentMovieList() {
   const [page, setPage] = useState(1);
   const pageSize = 4;
   const { data, isLoading, isError } = useQuery({
@@ -35,4 +35,4 @@ function CurrentMovieListSection() {
   );
 }
 
-export default CurrentMovieListSection;
+export default CurrentMovieList;
