@@ -24,7 +24,7 @@ function UpcomingMovieList() {
   return (
     <CardList
       title="Upcoming Movies"
-      seeAllLink="/movies/upcoming"
+      seeAllUrl="/movies/upcoming"
       items={data.content}
       total={data.totalElements}
       page={page}

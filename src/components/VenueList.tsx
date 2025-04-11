@@ -24,7 +24,7 @@ function VenueList() {
   return (
     <CardList
       title="Venues"
-      seeAllLink="/venues"
+      seeAllUrl="/venues"
       items={data.content}
       total={data.totalElements}
       page={page}

@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 interface CardListProps<T> {
   title: string;
-  seeAllLink: string;
+  seeAllUrl: string;
   items: T[];
   total: number;
   page: number;
@@ -17,7 +17,7 @@ interface CardListProps<T> {
 
 function CardList<T>({
   title,
-  seeAllLink,
+  seeAllUrl: seeAllLink,
   items,
   total,
   page,

@@ -24,7 +24,7 @@ function CurrentMovieList() {
   return (
     <CardList
       title="Currently Showing"
-      seeAllLink="/movies/current"
+      seeAllUrl="/movies/current"
       items={data.content}
       total={data.totalElements}
       page={page}
