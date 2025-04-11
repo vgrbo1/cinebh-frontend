@@ -7,12 +7,12 @@ function Footer() {
       <div className="flex flex-col items-center space-y-4">
         <img src={logo} alt="Cinebh logo" className="h-6 w-auto" />
         <div className="space-x-3 text-xs font-bold">
-          <Link to="/about" className="hover:underline">
-            ABOUT
+          <Link to="/about" className="hover:underline uppercase">
+            About
           </Link>
           <span className="text-white">|</span>
-          <Link to="/tickets" className="hover:underline">
-            TICKETS
+          <Link to="/tickets" className="hover:underline uppercase">
+            Tickets
           </Link>
         </div>
         <p className="text-sm text-white font-normal">
