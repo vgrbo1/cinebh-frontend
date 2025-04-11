@@ -17,7 +17,7 @@ export interface CardListProps<T> {
 
 export function CardList<T>({
   title,
-  seeAllUrl: seeAllLink,
+  seeAllUrl,
   items,
   total,
   page,
@@ -34,10 +34,7 @@ export function CardList<T>({
     <div className="space-y-4 px-14 my-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl text-primary font-bold">{title}</h2>
-        <Link
-          to={seeAllLink}
-          className="text-sm text-secondary hover:underline"
-        >
+        <Link to={seeAllUrl} className="text-sm text-secondary hover:underline">
           See All
         </Link>
       </div>

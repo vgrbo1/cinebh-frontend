@@ -1,4 +1,4 @@
-interface CardProps {
+export interface CardProps {
   imageUrl: string;
   title: string;
   secondaryText: string;
