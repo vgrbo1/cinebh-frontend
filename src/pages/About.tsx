@@ -1,6 +1,6 @@
 import AboutImage from "../assets/AboutImage.jpg";
-import Layout from "../components/Layout";
-function About() {
+import { Layout } from "../components/Layout";
+export function About() {
   return (
     <Layout>
       <div className="mx-auto px-14 py-16 font-primary">
@@ -46,5 +46,3 @@ function About() {
     </Layout>
   );
 }
-
-export default About;

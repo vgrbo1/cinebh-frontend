@@ -4,7 +4,7 @@ interface CardProps {
   secondaryText: string;
 }
 
-function Card({ imageUrl, title, secondaryText }: CardProps) {
+export function Card({ imageUrl, title, secondaryText }: CardProps) {
   return (
     <div className="rounded-xl shadow-md bg-white w-full p-4">
       <img
@@ -17,5 +17,3 @@ function Card({ imageUrl, title, secondaryText }: CardProps) {
     </div>
   );
 }
-
-export default Card;

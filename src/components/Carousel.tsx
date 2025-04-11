@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getMovieCarousels } from "../services/movieService";
 
-function Carousel() {
+export function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["movies", "latest"],
@@ -83,5 +83,3 @@ function Carousel() {
     </div>
   );
 }
-
-export default Carousel;

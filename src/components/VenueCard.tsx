@@ -1,7 +1,7 @@
 import { Venue } from "../types/Venue";
-import Card from "./Card";
+import { Card } from "./Card";
 
-function VenueCard({ name, imageUrl, street, cityName }: Venue) {
+export function VenueCard({ name, imageUrl, street, cityName }: Venue) {
   return (
     <Card
       imageUrl={imageUrl}
@@ -10,5 +10,3 @@ function VenueCard({ name, imageUrl, street, cityName }: Venue) {
     />
   );
 }
-
-export default VenueCard;

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import logo from "../assets/logo.png";
-function Navbar() {
+
+export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-primary font-primary text-white">
       <div className="px-14 py-3 flex items-center justify-between">
@@ -25,5 +26,3 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;

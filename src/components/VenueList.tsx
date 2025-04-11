@@ -1,12 +1,12 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import CardList from "../components/CardList";
+import { CardList } from "../components/CardList";
 import { getVenues } from "../services/venueService";
-import VenueCard from "./VenueCard";
+import { VenueCard } from "./VenueCard";
 
 const PAGE_SIZE = 4;
 
-function VenueList() {
+export function VenueList() {
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["venues", page],
@@ -35,5 +35,3 @@ function VenueList() {
     />
   );
 }
-
-export default VenueList;

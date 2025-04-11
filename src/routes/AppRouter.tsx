@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
-import About from "../pages/About";
-import Home from "../pages/Home";
-import Pricing from "../pages/Pricing";
+import { About } from "../pages/About";
+import { Home } from "../pages/Home";
+import { Pricing } from "../pages/Pricing";
 
 function AppRouter() {
   return (

@@ -1,5 +1,5 @@
-import Layout from "../components/Layout";
-import PricingCard from "../components/PricingCard";
+import { Layout } from "../components/Layout";
+import { PricingCard } from "../components/PricingCard";
 
 const SEAT_OPTIONS = [
   {
@@ -38,7 +38,7 @@ const SEAT_OPTIONS = [
   },
 ];
 
-function Pricing() {
+export function Pricing() {
   return (
     <Layout>
       <section className="bg-white py-16 px-4 text-center">
@@ -64,5 +64,3 @@ function Pricing() {
     </Layout>
   );
 }
-
-export default Pricing;

@@ -1,14 +1,14 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface PricingCardProps {
+export interface PricingCardProps {
   title: string;
   price: string;
   features: string[];
   highlighted?: boolean;
 }
 
-function PricingCard({
+export function PricingCard({
   title,
   price,
   features,
@@ -57,5 +57,3 @@ function PricingCard({
     </div>
   );
 }
-
-export default PricingCard;

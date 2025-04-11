@@ -4,7 +4,7 @@ import { getVenues } from "../services/venueService";
 const PAGE = 1;
 const PAGE_SIZE = 6;
 
-function VenueButtonRow() {
+export function VenueButtonRow() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["venues"],
     queryFn: () => getVenues(PAGE, PAGE_SIZE),
@@ -34,5 +34,3 @@ function VenueButtonRow() {
     </div>
   );
 }
-
-export default VenueButtonRow;

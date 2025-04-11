@@ -1,12 +1,12 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import CardList from "../components/CardList";
+import { CardList } from "../components/CardList";
 import { getCurrentMovies } from "../services/movieService";
-import MovieCard from "./MovieCard";
+import {MovieCard} from "./MovieCard";
 
 const PAGE_SIZE = 4;
 
-function CurrentMovieList() {
+export function CurrentMovieList() {
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["movies", "current", page],
@@ -35,5 +35,3 @@ function CurrentMovieList() {
     />
   );
 }
-
-export default CurrentMovieList;

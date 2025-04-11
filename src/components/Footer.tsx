@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import logo from "../assets/logo.png";
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="bg-gradient-to-r from-[#1A1A1A] to-secondary text-white font-primary text-center px-4 py-8">
       <div className="flex flex-col items-center space-y-4">
@@ -22,5 +22,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

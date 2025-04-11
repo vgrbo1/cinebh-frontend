@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router";
 
-interface CardListProps<T> {
+export interface CardListProps<T> {
   title: string;
   seeAllUrl: string;
   items: T[];
@@ -15,7 +15,7 @@ interface CardListProps<T> {
   renderItem: (item: T) => React.ReactNode;
 }
 
-function CardList<T>({
+export function CardList<T>({
   title,
   seeAllUrl: seeAllLink,
   items,
@@ -71,5 +71,3 @@ function CardList<T>({
     </div>
   );
 }
-
-export default CardList;

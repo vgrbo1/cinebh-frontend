@@ -1,7 +1,7 @@
 import { Movie } from "../types/Movie";
-import Card from "./Card";
+import { Card } from "./Card";
 
-function MovieCard({ title, posterUrl, genres, duration }: Movie) {
+export function MovieCard({ title, posterUrl, genres, duration }: Movie) {
   return (
     <Card
       imageUrl={posterUrl}
@@ -12,5 +12,3 @@ function MovieCard({ title, posterUrl, genres, duration }: Movie) {
     />
   );
 }
-
-export default MovieCard;
