@@ -47,7 +47,7 @@ function CardList<T>({
 
       <div className="flex justify-end items-center gap-4 text-sm text-gray-600">
         <span>
-          Showing {from}–{to} of {total}
+          Showing {from}-{to} of {total}
         </span>
         <div className="flex gap-2">
           <button
