@@ -1,5 +1,5 @@
-import { PaginatedResponse } from "../types/PaginatedResponse";
-import { Venue } from "../types/Venue";
+import { PaginatedResponse } from "../types/api/PaginatedResponse";
+import { Venue } from "../types/model/Venue";
 import axiosInstance from "./axiosInstance";
 
 export const getVenues = async (

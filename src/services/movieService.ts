@@ -1,6 +1,6 @@
-import { Movie } from "../types/Movie";
-import { MovieCarousel } from "../types/MovieCarousel";
-import { PaginatedResponse } from "../types/PaginatedResponse";
+import { PaginatedResponse } from "../types/api/PaginatedResponse";
+import { Movie } from "../types/model/Movie";
+import { MovieCarousel } from "../types/model/MovieCarousel";
 import axiosInstance from "./axiosInstance";
 
 export const getCurrentMovies = async (

@@ -1,4 +1,4 @@
-import { Movie } from "../types/Movie";
+import { Movie } from "../types/model/Movie";
 import { Card } from "./Card";
 
 export function MovieCard({ title, posterUrl, genres, duration }: Movie) {
