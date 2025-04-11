@@ -4,12 +4,13 @@ import CardList from "../components/CardList";
 import { getUpcomingMovies } from "../services/movieService";
 import MovieCard from "./MovieCard";
 
+const PAGE_SIZE = 4;
+
 function UpcomingMovieList() {
   const [page, setPage] = useState(1);
-  const pageSize = 4;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["movies", "upcoming", page],
-    queryFn: () => getUpcomingMovies(page, pageSize),
+    queryFn: () => getUpcomingMovies(page, PAGE_SIZE),
     placeholderData: keepPreviousData,
   });
 
@@ -28,7 +29,7 @@ function UpcomingMovieList() {
       items={data.content}
       total={data.totalElements}
       page={page}
-      pageSize={pageSize}
+      pageSize={PAGE_SIZE}
       onPageChange={setPage}
       renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
     />

@@ -4,12 +4,13 @@ import CardList from "../components/CardList";
 import { getCurrentMovies } from "../services/movieService";
 import MovieCard from "./MovieCard";
 
+const PAGE_SIZE = 4;
+
 function CurrentMovieList() {
   const [page, setPage] = useState(1);
-  const pageSize = 4;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["movies", "current", page],
-    queryFn: () => getCurrentMovies(page, pageSize),
+    queryFn: () => getCurrentMovies(page, PAGE_SIZE),
     placeholderData: keepPreviousData,
   });
 
@@ -28,7 +29,7 @@ function CurrentMovieList() {
       items={data.content}
       total={data.totalElements}
       page={page}
-      pageSize={pageSize}
+      pageSize={PAGE_SIZE}
       onPageChange={setPage}
       renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
     />

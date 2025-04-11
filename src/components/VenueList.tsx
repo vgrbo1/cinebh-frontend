@@ -4,12 +4,13 @@ import CardList from "../components/CardList";
 import { getVenues } from "../services/venueService";
 import VenueCard from "./VenueCard";
 
+const PAGE_SIZE = 4;
+
 function VenueList() {
   const [page, setPage] = useState(1);
-  const pageSize = 4;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["venues", page],
-    queryFn: () => getVenues(page, pageSize),
+    queryFn: () => getVenues(page, PAGE_SIZE),
     placeholderData: keepPreviousData,
   });
 
@@ -28,7 +29,7 @@ function VenueList() {
       items={data.content}
       total={data.totalElements}
       page={page}
-      pageSize={pageSize}
+      pageSize={PAGE_SIZE}
       onPageChange={setPage}
       renderItem={(venue) => <VenueCard key={venue.id} {...venue} />}
     />

@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import PricingCard from "../components/PricingCard";
 
-const seatOptions = [
+const SEAT_OPTIONS = [
   {
     title: "Regular Seats",
     price: "7 KM",
@@ -50,7 +50,7 @@ function Pricing() {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto items-start">
-          {seatOptions.map((option) => (
+          {SEAT_OPTIONS.map((option) => (
             <PricingCard
               key={option.title}
               title={option.title}

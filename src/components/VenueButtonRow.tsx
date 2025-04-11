@@ -1,12 +1,13 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getVenues } from "../services/venueService";
 
+const PAGE = 1;
+const PAGE_SIZE = 6;
+
 function VenueButtonRow() {
-  const page = 1;
-  const pageSize = 6;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["venues"],
-    queryFn: () => getVenues(page, pageSize),
+    queryFn: () => getVenues(PAGE, PAGE_SIZE),
     placeholderData: keepPreviousData,
   });
 
