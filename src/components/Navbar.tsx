@@ -4,7 +4,7 @@ import logo from "../assets/logo.png";
 export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-primary font-primary text-white text-base">
-      <div className="px-14 py-4 flex items-center justify-between">
+      <div className="px-24 py-4 flex items-center justify-between">
         <Link to={"/"}>
           <img src={logo} alt="Cinebh logo" className="h-8 w-auto" />
         </Link>

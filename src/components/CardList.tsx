@@ -31,14 +31,14 @@ export function CardList<T>({
   const hasPrev = page > 1;
 
   return (
-    <div className="space-y-4 px-14 my-6">
+    <div className="space-y-4 px-24 my-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl text-primary font-bold">{title}</h2>
         <Link to={seeAllUrl} className="text-sm text-secondary hover:underline">
           See All
         </Link>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
         {items.map(renderItem)}
       </div>
 
