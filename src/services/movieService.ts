@@ -1,6 +1,7 @@
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
 import { Movie } from "../types/model/Movie";
 import { MovieCarousel } from "../types/model/MovieCarousel";
+import { MovieWithProjections } from "../types/model/MovieWithProjections";
 import axiosInstance from "./axiosInstance";
 
 export const getCurrentMovies = async (
@@ -53,6 +54,30 @@ export const getMovieCarousels = async (): Promise<MovieCarousel[]> => {
     return response.data;
   } catch (error) {
     console.error("Error fetching current movies:", error);
+    throw error;
+  }
+};
+
+export const getDetailedMovies = async (
+  title: string,
+  projectionDate: string,
+  page: number,
+  size: number
+): Promise<PaginatedResponse<MovieWithProjections>> => {
+  try {
+    const response = await axiosInstance.get<
+      PaginatedResponse<MovieWithProjections>
+    >("/api/movies/detailed", {
+      params: {
+        title: title,
+        projectionDate,
+        page: page,
+        size: size,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching detailed current movies:", error);
     throw error;
   }
 };
