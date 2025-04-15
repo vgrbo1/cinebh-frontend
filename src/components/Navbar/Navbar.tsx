@@ -9,7 +9,7 @@ export function Navbar() {
           <img src={logo} alt="Cinebh logo" className="h-8 w-auto" />
         </Link>
         <div className="flex-1 flex justify-center space-x-6 text-sm">
-          <Link to={"/"} className="hover:underline">
+          <Link to={"/currently-showing"} className="hover:underline">
             Currently Showing
           </Link>
           <Link to={"/"} className="hover:underline">
