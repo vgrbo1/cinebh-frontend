@@ -1,9 +1,8 @@
 import { faFilm } from "@fortawesome/free-solid-svg-icons/faFilm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { Link } from "react-router";
 
-const NoMoviesCard: React.FC = () => {
+export function NoMoviesCard() {
   return (
     <div className="px-24">
       <div className="border border-gray-200 rounded-2xl font-primary text-center text-gray-700 py-20 my-3 px-0">
@@ -26,6 +25,4 @@ const NoMoviesCard: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default NoMoviesCard;
+}

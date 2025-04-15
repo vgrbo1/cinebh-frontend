@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Layout } from "../components/Layout/Layout";
 import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
-import NoMoviesCard from "../components/NoMoviesCard/NoMoviesCard";
+import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
 import { getDetailedMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
@@ -18,7 +18,7 @@ export function CurrentlyShowing() {
   const [debouncedTitle] = useDebounce(title, 500);
   const { data, error, fetchNextPage, hasNextPage, isLoading } =
     useInfiniteQuery({
-      queryKey: ["currently-showiing", debouncedTitle, date],
+      queryKey: ["currently-showing", debouncedTitle, date],
       queryFn: (pageParam) =>
         getDetailedMovies(debouncedTitle, date, pageParam.pageParam, PAGE_SIZE),
       initialPageParam: 0,
