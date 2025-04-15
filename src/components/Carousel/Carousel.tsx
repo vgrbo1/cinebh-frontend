@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { getMovieCarousels } from "../services/movieService";
+import { getMovieCarousels } from "../../services/movieService";
 
 export function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);

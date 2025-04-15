@@ -1,8 +1,8 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { CardList } from "../components/CardList";
-import { getVenues } from "../services/venueService";
-import { VenueCard } from "./VenueCard";
+import { getVenues } from "../../services/venueService";
+import { VenueCard } from "../Card/VenueCard";
+import { CardList } from "./CardList";
 
 const PAGE_SIZE = 4;
 

@@ -1,16 +1,16 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { CardList } from "../components/CardList";
-import { getCurrentMovies } from "../services/movieService";
-import {MovieCard} from "./MovieCard";
+import { getUpcomingMovies } from "../../services/movieService";
+import { MovieCard } from "../Card/MovieCard";
+import { CardList } from "./CardList";
 
 const PAGE_SIZE = 4;
 
-export function CurrentMovieList() {
+export function UpcomingMovieList() {
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["movies", "current", page],
-    queryFn: () => getCurrentMovies(page, PAGE_SIZE),
+    queryKey: ["movies", "upcoming", page],
+    queryFn: () => getUpcomingMovies(page, PAGE_SIZE),
     placeholderData: keepPreviousData,
   });
 
@@ -24,8 +24,8 @@ export function CurrentMovieList() {
 
   return (
     <CardList
-      title="Currently Showing"
-      seeAllUrl="/movies/current"
+      title="Upcoming Movies"
+      seeAllUrl="/movies/upcoming"
       items={data.content}
       total={data.totalElements}
       page={page}

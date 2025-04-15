@@ -1,5 +1,5 @@
 import AboutImage from "../assets/AboutImage.jpg";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/Layout/Layout";
 export function About() {
   return (
     <Layout>

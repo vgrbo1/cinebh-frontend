@@ -1,5 +1,5 @@
-import { Layout } from "../components/Layout";
-import { PricingCard } from "../components/PricingCard";
+import { Layout } from "../components/Layout/Layout";
+import { PricingCard } from "../components/PricingCard/PricingCard";
 
 const SEAT_OPTIONS = [
   {

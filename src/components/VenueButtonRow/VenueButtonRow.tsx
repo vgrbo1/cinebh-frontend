@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getVenues } from "../services/venueService";
+import { getVenues } from "../../services/venueService";
 
 const PAGE = 1;
 const PAGE_SIZE = 6;
