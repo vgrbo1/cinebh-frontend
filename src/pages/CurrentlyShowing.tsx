@@ -1,10 +1,10 @@
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
-import { CurrentMoviesSearchForm } from "../components/CurrentMoviesSearchForm";
+import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
+import { CurrentMoviesSearchForm } from "../components/CurrentMoviesSearchForm/CurrentMoviesSearchForm";
 import { Layout } from "../components/Layout/Layout";
-import { MovieDetailCard } from "../components/MovieDetailCard";
-import NoMoviesCard from "../components/NoMoviesCard";
+import NoMoviesCard from "../components/NoMoviesCard/NoMoviesCard";
 import { getDetailedMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
 import { MovieWithProjections } from "../types/model/MovieWithProjections";

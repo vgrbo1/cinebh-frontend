@@ -1,4 +1,4 @@
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "../SearchBar/SearchBar";
 
 export interface CurrentMoviesSearchFormProps {
   title: string;

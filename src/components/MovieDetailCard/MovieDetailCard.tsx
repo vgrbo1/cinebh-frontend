@@ -1,4 +1,4 @@
-import { MovieWithProjections } from "../types/model/MovieWithProjections";
+import { MovieWithProjections } from "../../types/model/MovieWithProjections";
 
 export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
   const [year, month, day] = movie.projectionEndsAt;
