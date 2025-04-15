@@ -6,4 +6,5 @@ export interface Movie {
   posterUrl: string;
   duration: number;
   genres: Genre[];
+  projectionStartsAt: [number, number, number];
 }
