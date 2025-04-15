@@ -12,7 +12,7 @@ export function Navbar() {
           <Link to={"/currently-showing"} className="hover:underline">
             Currently Showing
           </Link>
-          <Link to={"/"} className="hover:underline">
+          <Link to={"/upcoming-movies"} className="hover:underline">
             Upcoming Movies
           </Link>
           <Link to={"/"} className="hover:underline">
