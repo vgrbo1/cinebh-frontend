@@ -1,10 +1,10 @@
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
-import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
-import { CurrentMoviesSearchForm } from "../components/CurrentMoviesSearchForm/CurrentMoviesSearchForm";
 import { Layout } from "../components/Layout/Layout";
+import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
 import NoMoviesCard from "../components/NoMoviesCard/NoMoviesCard";
+import { SearchForm } from "../components/SearchForm/SearchForm";
 import { getDetailedMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
 import { MovieWithProjections } from "../types/model/MovieWithProjections";
@@ -50,11 +50,12 @@ export function CurrentlyShowing() {
             ? "Currently Showing"
             : `Currently Showing (${movies.length})`}
         </h1>
-        <CurrentMoviesSearchForm
+        <SearchForm
           title={title}
           setTitle={setTitle}
           date={date}
           setDate={setDate}
+          hasDateSelector={true}
         />
         <p className="text-sm text-gray-500 italic">
           Quick reminder that our cinema schedule is on a ten-day update cycle
