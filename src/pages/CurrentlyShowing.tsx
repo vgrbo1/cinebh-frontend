@@ -18,7 +18,7 @@ export function CurrentlyShowing() {
   const [debouncedTitle] = useDebounce(title, 500);
   const { data, error, fetchNextPage, hasNextPage, isLoading } =
     useInfiniteQuery({
-      queryKey: ["currently-showiing", debouncedTitle, date],
+      queryKey: ["currently-showing", debouncedTitle, date],
       queryFn: (pageParam) =>
         getDetailedMovies(debouncedTitle, date, pageParam.pageParam, PAGE_SIZE),
       initialPageParam: 0,
