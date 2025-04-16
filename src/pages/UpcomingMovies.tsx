@@ -49,29 +49,29 @@ export function UpcomingMovies() {
             : `Upcoming Movies (${movies.length})`}
         </h1>
         <SearchForm title={title} setTitle={setTitle} />
-
-        {movies.length === 0 ? (
-          <NoMoviesCard text="Upcoming" />
-        ) : (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
-              {movies.map((movie: Movie) => (
-                <UpcomingMovieCard {...movie} key={movie.id} />
-              ))}
-            </div>
-            {hasNextPage && (
-              <div className="flex justify-center my-6">
-                <button
-                  onClick={() => fetchNextPage()}
-                  className=" hover:underline text-secondary font-primary py-2 px-4 text-base"
-                >
-                  Load more
-                </button>
-              </div>
-            )}
-          </>
-        )}
       </div>
+
+      {movies.length === 0 ? (  
+        <NoMoviesCard text="Upcoming" />
+      ) : (
+        <>
+          <div className="px-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
+            {movies.map((movie: Movie) => (
+              <UpcomingMovieCard {...movie} key={movie.id} />
+            ))}
+          </div>
+          {hasNextPage && (
+            <div className="flex justify-center my-6">
+              <button
+                onClick={() => fetchNextPage()}
+                className=" hover:underline text-secondary font-primary py-2 px-4 text-base"
+              >
+                Load more
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </Layout>
   );
 }
