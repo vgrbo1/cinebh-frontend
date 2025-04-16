@@ -57,7 +57,7 @@ export function CurrentlyShowing() {
           setDate={setDate}
           hasDateSelector={true}
         />
-        <p className="text-sm text-gray-500 italic">
+        <p className="text-sm text-customDarkGray italic">
           Quick reminder that our cinema schedule is on a ten-day update cycle
         </p>
       </div>
