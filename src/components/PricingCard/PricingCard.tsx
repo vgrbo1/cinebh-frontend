@@ -1,5 +1,6 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router";
 
 export interface PricingCardProps {
   title: string;
@@ -45,7 +46,8 @@ export function PricingCard({
         </ul>
       </div>
 
-      <button
+      <Link
+        to={"/currently-showing"}
         className={`w-fit self-center rounded-lg px-5 py-3 font-semibold border mt-10 transition-colors duration-200 ${
           highlighted
             ? "bg-secondary text-white hover:bg-secondary/90 border-secondary"
@@ -53,7 +55,7 @@ export function PricingCard({
         }`}
       >
         Explore Movies
-      </button>
+      </Link>
     </div>
   );
 }
