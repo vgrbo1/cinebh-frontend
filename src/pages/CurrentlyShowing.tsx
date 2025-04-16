@@ -23,24 +23,16 @@ export function CurrentlyShowing() {
         getDetailedMovies(debouncedTitle, date, pageParam.pageParam, PAGE_SIZE),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => {
-        if (lastPage.last) {
-          return undefined;
-        }
+        if (lastPage.last) return undefined;
         return lastPage.number + 1;
       },
       placeholderData: keepPreviousData,
     });
 
-  if (!data || isLoading) {
-    return <div>Loading current movies...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading current movies</div>;
-  }
-  const movies = data.pages.flatMap(
-    (page: PaginatedResponse<MovieWithProjections>) => page.content
-  );
+  const movies =
+    data?.pages.flatMap(
+      (page: PaginatedResponse<MovieWithProjections>) => page.content
+    ) ?? [];
 
   return (
     <Layout>
@@ -60,27 +52,36 @@ export function CurrentlyShowing() {
         <p className="text-sm text-customDarkGray italic">
           Quick reminder that our cinema schedule is on a ten-day update cycle
         </p>
+
+        {error && <div>Error loading current movies</div>}
+
+        {isLoading && <div>Loading current movies...</div>}
       </div>
-      {movies.length === 0 ? (
-        <NoMoviesCard text="Current" />
-      ) : (
-        <>
-          <div className="flex flex-col space-y-3">
-            {movies.map((movie: MovieWithProjections) => (
-              <MovieDetailCard movie={movie} key={movie.id} />
-            ))}
-          </div>
-          {hasNextPage && (
-            <div className="flex justify-center my-6">
-              <button
-                onClick={() => fetchNextPage()}
-                className=" hover:underline text-secondary font-primary py-2 px-4 text-base"
-              >
-                Load more
-              </button>
-            </div>
+
+      {!isLoading && !error && (
+        <div className="my-10">
+          {movies.length === 0 ? (
+            <NoMoviesCard text="Current" />
+          ) : (
+            <>
+              <div className="flex flex-col space-y-6">
+                {movies.map((movie: MovieWithProjections) => (
+                  <MovieDetailCard movie={movie} key={movie.id} />
+                ))}
+              </div>
+              {hasNextPage && (
+                <div className="flex justify-center my-6">
+                  <button
+                    onClick={() => fetchNextPage()}
+                    className="hover:underline text-secondary font-primary py-2 px-4 text-base"
+                  >
+                    Load more
+                  </button>
+                </div>
+              )}
+            </>
           )}
-        </>
+        </div>
       )}
     </Layout>
   );
