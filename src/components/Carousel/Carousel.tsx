@@ -15,7 +15,7 @@ export function Carousel() {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-    }, 4000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [data]);
@@ -33,7 +33,7 @@ export function Carousel() {
       {data.map((movie, i) => (
         <div
           key={movie.id}
-          className={`absolute inset-0 transition-opacity duration-700 ${
+          className={`absolute inset-0 transition-opacity duration-1000 ${
             i === currentIndex ? "opacity-100" : "opacity-0"
           }`}
         >
