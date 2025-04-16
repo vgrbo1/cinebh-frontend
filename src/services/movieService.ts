@@ -28,7 +28,7 @@ export const getCurrentMovies = async (
 export const getUpcomingMovies = async (
   page: number,
   pageSize: number,
-  title: string
+  title?: string
 ): Promise<PaginatedResponse<Movie>> => {
   try {
     const response = await axiosInstance.get<PaginatedResponse<Movie>>(
