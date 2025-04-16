@@ -21,7 +21,7 @@ export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   return (
-    <div className="px-24 py-3">
+    <div className="px-24">
       <div className="flex font-primary flex-col lg:flex-row bg-white rounded-3xl border border-customGray shadow-light-100 overflow-hidden w-full">
         <div className="md:w-1/2 flex flex-row gap-6 p-6 items-start">
           <div className="w-72 aspect-square flex-shrink-0">
