@@ -19,7 +19,10 @@ const NoMoviesCard: React.FC = () => {
             tuned for amazing movie experience or explore our other exciting
             cinema features in the meantime!
           </p>
-          <Link to="/upcoming" className="text-secondary font-medium underline">
+          <Link
+            to="/upcoming-movies"
+            className="text-secondary font-medium underline"
+          >
             Explore Upcoming Movies
           </Link>
         </div>
