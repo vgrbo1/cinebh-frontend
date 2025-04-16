@@ -3,5 +3,18 @@
 @theme {
   --color-primary: #1d2939;
   --color-secondary: #b22222;
+  --color-customGray: #e4e7ec;
+  --color-customDarkGray: #667085;
   --font-primary: "Urbanist", sans-serif;
+}
+
+@layer utilities {
+  .shadow-light-50 {
+    box-shadow: 0px 1px 2px -2px rgba(52, 64, 84, 0.08),
+      0px 1px 3px -1px rgba(52, 64, 84, 0.08);
+  }
+  .shadow-light-100 {
+    box-shadow: 0px 2px 4px -2px rgba(52, 64, 84, 0.08),
+      0px 4px 6px -1px rgba(52, 64, 84, 0.08);
+  }
 }

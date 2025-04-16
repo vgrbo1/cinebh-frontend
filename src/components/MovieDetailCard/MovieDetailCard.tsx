@@ -5,7 +5,7 @@ export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
   const projectionEndsAt = `${String(year)}.${String(month).padStart(
     2,
     "0"
-  )}.${String(day).padStart(2, "0")}`;
+  )}.${String(day).padStart(2, "0")}.`;
   const showtimes = movie.projections
     .map(({ id, startTime, hallName, cinemaName }) => {
       const [hours, minutes] = startTime;
@@ -22,31 +22,31 @@ export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
 
   return (
     <div className="px-24 py-3">
-      <div className="flex flex-col lg:flex-row bg-white rounded-xl border-gray-200 shadow-lg overflow-hidden w-full">
+      <div className="flex font-primary flex-col lg:flex-row bg-white rounded-3xl border border-customGray shadow-light-100 overflow-hidden w-full">
         <div className="md:w-1/2 flex flex-row gap-6 p-6 items-start">
           <div className="w-72 aspect-square flex-shrink-0">
             <img
               src={movie.posterUrl}
               alt={movie.title}
-              className="object-cover w-full h-full rounded-lg"
+              className="object-cover w-full h-full rounded-2xl"
             />
           </div>
 
           <div className="flex flex-col justify-between h-full flex-grow">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900">
-                {movie.title}
-              </h2>
-              <div className="text-gray-600 text-sm mt-2">
+              <h2 className="text-3xl font-bold text-primary">{movie.title}</h2>
+              <div className="text-primary text-sm mt-2">
                 <span className="mr-2">{movie.pgRating.replace("_", "-")}</span>
-                |<span className="mx-2">{movie.language}</span>|
+                <span className="text-secondary text-lg">|</span>
+                <span className="mx-2">{movie.language}</span>
+                <span className="text-secondary text-lg">|</span>
                 <span className="ml-2">{movie.duration} Min</span>
               </div>
               <div className="flex flex-wrap gap-2 mt-4">
                 {movie.genres.map((genre) => (
                   <button
                     key={genre}
-                    className="px-2 bg-gray-100 text-gray-800 text-sm rounded-md h-8"
+                    className="px-2 bg-customGray text-primary text-sm rounded-lg h-8"
                   >
                     {genre}
                   </button>
@@ -54,21 +54,19 @@ export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
               </div>
             </div>
 
-            <p className="text-gray-500 italic text-sm mt-4">
+            <p className="text-customDarkGray italic text-sm mt-4">
               Playing in cinema until {projectionEndsAt}
             </p>
           </div>
         </div>
 
         <div className="md:w-1/2 p-6 flex flex-col justify-start items-start">
-          <h3 className="text-lg font-semibold text-secondary mb-4">
-            Showtimes
-          </h3>
+          <h3 className="text-xl font-bold text-secondary mb-4">Showtimes</h3>
           <div className="flex flex-wrap gap-3">
             {showtimes.sort().map((showtime) => (
               <button
                 key={showtime.id}
-                className="bg-gray-100 text-gray-900 px-2 rounded-md h-12 text-xl"
+                className="bg-white border text-primary px-2 rounded-lg h-12 text-xl font-bold border-customGray shadow-light-50"
                 title={`Hall: ${showtime.hallName} - ${showtime.cinemaName}`}
               >
                 {showtime.startTime}
