@@ -19,7 +19,7 @@ export function Navbar() {
             Venues
           </Link>
         </div>
-        <button className="bg-primary h-12 text-white rounded-lg border border-white px-5 py-3">
+        <button className="bg-primary h-12 text-white rounded-lg border font-semibold border-white px-5 py-3">
           Sign In
         </button>
       </div>
