@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { UpcomingMovieCard } from "../components/Card/UpcomingMovieCard";
 import { Layout } from "../components/Layout/Layout";
-import NoMoviesCard from "../components/NoMoviesCard/NoMoviesCard";
+import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
 import { getUpcomingMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
@@ -51,7 +51,7 @@ export function UpcomingMovies() {
         <SearchForm title={title} setTitle={setTitle} />
 
         {movies.length === 0 ? (
-          <NoMoviesCard />
+          <NoMoviesCard text="Upcoming" />
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">

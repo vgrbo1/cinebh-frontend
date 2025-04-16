@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Layout } from "../components/Layout/Layout";
 import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
-import NoMoviesCard from "../components/NoMoviesCard/NoMoviesCard";
+import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
 import { getDetailedMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
@@ -62,7 +62,7 @@ export function CurrentlyShowing() {
         </p>
       </div>
       {movies.length === 0 ? (
-        <NoMoviesCard />
+        <NoMoviesCard text="Current" />
       ) : (
         <>
           <div className="flex flex-col space-y-3">
