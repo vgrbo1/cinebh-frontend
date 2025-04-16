@@ -34,14 +34,16 @@ export function DateSelector({ date, setDate }: DateSelectorProps) {
         >
           <span
             className={`${
-              date === d.full ? "font-bold text-xl" : "font-semibold text-base"
+              date === d.full
+                ? "font-bold text-px-20"
+                : "font-semibold text-base"
             } font-primary`}
           >
             {d.label}
           </span>
           {d.isToday ? (
             <span
-              className={`text-base font-primary ${
+              className={`text-px-16 font-primary ${
                 date === d.full ? "text-white" : "text-customDarkGray"
               }`}
             >
@@ -49,7 +51,7 @@ export function DateSelector({ date, setDate }: DateSelectorProps) {
             </span>
           ) : (
             <span
-              className={`text-base font-primary ${
+              className={`text-px-16 font-primary ${
                 date === d.full ? "text-white" : "text-customDarkGray"
               }`}
             >

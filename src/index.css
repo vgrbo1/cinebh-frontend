@@ -10,6 +10,23 @@
   --color-customDarkCyanBlue: #344054;
   --color-customDarkCyanBlue2: #475467;
   --font-primary: "Urbanist", sans-serif;
+  --text-px-4: 4px;
+  --text-px-6: 6px;
+  --text-px-8: 8px;
+  --text-px-10: 10px;
+  --text-px-12: 12px;
+  --text-px-14: 14px;
+  --text-px-16: 16px;
+  --text-px-18: 18px;
+  --text-px-20: 20px;
+  --text-px-24: 24px;
+  --text-px-28: 28px;
+  --text-px-32: 32px;
+  --text-px-36: 36px;
+  --text-px-40: 40px;
+  --text-px-48: 48px;
+  --text-px-56: 56px;
+  --text-px-64: 64px;
 }
 
 @layer utilities {
