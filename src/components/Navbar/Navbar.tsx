@@ -8,7 +8,7 @@ export function Navbar() {
         <Link to={"/"}>
           <img src={logo} alt="Cinebh logo" className="h-8 w-auto" />
         </Link>
-        <div className="flex-1 flex justify-center space-x-6 text-sm">
+        <div className="flex-1 flex justify-center space-x-6 text-base">
           <Link to={"/currently-showing"} className="hover:underline">
             Currently Showing
           </Link>
@@ -19,7 +19,7 @@ export function Navbar() {
             Venues
           </Link>
         </div>
-        <button className="bg-primary h-12 text-white rounded border border-white px-4 py-2">
+        <button className="bg-primary h-12 text-white rounded-lg border border-white px-5 py-3">
           Sign In
         </button>
       </div>
