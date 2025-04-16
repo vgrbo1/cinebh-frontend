@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Marquee from "react-fast-marquee";
 import { getVenues } from "../../services/venueService";
-
 const PAGE = 1;
 const PAGE_SIZE = 6;
 
@@ -20,17 +20,18 @@ export function VenueButtonRow() {
   }
 
   return (
-    <div className="w-full px-24 mt-6 flex justify-center">
-      <div className="flex flex-wrap gap-8 font-bold font-primary">
-        {data.content.map((venue) => (
-          <button
-            key={venue.id}
-            className="w-fit rounded p-4  bg-white text-customDarkGray2 border border-customGray"
-          >
+    <Marquee
+      speed={30}
+      pauseOnHover={true}
+      className="font-bold text-2xl font-primary py-10"
+    >
+      {data.content.map((venue) => (
+        <div key={venue.id} className="mx-5">
+          <button className="rounded p-4 bg-white text-customDarkGray2 border border-customGray">
             {venue.name}
           </button>
-        ))}
-      </div>
-    </div>
+        </div>
+      ))}
+    </Marquee>
   );
 }
