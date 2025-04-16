@@ -26,7 +26,7 @@ export function DateSelector({ date, setDate }: DateSelectorProps) {
         <button
           key={d.full}
           onClick={() => setDate(d.full)}
-          className={`flex flex-col items-center p-4 rounded transition w-full shadow-md ${
+          className={`flex flex-col items-center p-4 rounded transition w-full shadow-md cursor-pointer ${
             date === d.full ? "bg-secondary text-white" : "bg-white text-black"
           }`}
         >
