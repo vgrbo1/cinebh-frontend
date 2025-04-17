@@ -1,68 +1,41 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@theme {
+  --color-primary: #1d2939;
+  --color-secondary: #b22222;
+  --color-customGray: #e4e7ec;
+  --color-customWhite: #f9fafb;
+  --color-customDarkGray: #667085;
+  --color-customDarkGray2: #98a2b3;
+  --color-customDarkCyanBlue: #344054;
+  --color-customDarkCyanBlue2: #475467;
+  --font-primary: "Urbanist", sans-serif;
+  --text-px-4: 4px;
+  --text-px-6: 6px;
+  --text-px-8: 8px;
+  --text-px-10: 10px;
+  --text-px-12: 12px;
+  --text-px-14: 14px;
+  --text-px-16: 16px;
+  --text-px-18: 18px;
+  --text-px-20: 20px;
+  --text-px-24: 24px;
+  --text-px-28: 28px;
+  --text-px-32: 32px;
+  --text-px-36: 36px;
+  --text-px-40: 40px;
+  --text-px-48: 48px;
+  --text-px-56: 56px;
+  --text-px-64: 64px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer utilities {
+  .shadow-light-50 {
+    box-shadow: 0px 1px 2px -2px rgba(52, 64, 84, 0.08),
+      0px 1px 3px -1px rgba(52, 64, 84, 0.08);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  .shadow-light-100 {
+    box-shadow: 0px 2px 4px -2px rgba(52, 64, 84, 0.08),
+      0px 4px 6px -1px rgba(52, 64, 84, 0.08);
   }
 }
