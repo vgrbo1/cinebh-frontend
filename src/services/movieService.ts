@@ -28,7 +28,10 @@ export const getCurrentMovies = async (
 export const getUpcomingMovies = async (
   page: number,
   pageSize: number,
-  title?: string
+  title?: string,
+  locationIds?: number[],
+  genreIds?: number[],
+  venueIds?: number[]
 ): Promise<PaginatedResponse<Movie>> => {
   try {
     const response = await axiosInstance.get<PaginatedResponse<Movie>>(
@@ -38,7 +41,11 @@ export const getUpcomingMovies = async (
           page: page - 1,
           size: pageSize,
           title: title,
+          locationIds: locationIds,
+          genreIds: genreIds,
+          venueIds: venueIds,
         },
+        paramsSerializer: { indexes: null },
       }
     );
     return response.data;
@@ -64,7 +71,12 @@ export const getDetailedMovies = async (
   title: string,
   projectionDate: string,
   page: number,
-  size: number
+  size: number,
+  locationIds?: number[],
+  genreIds?: number[],
+  venueIds?: number[],
+  timeFrom?: string,
+  timeTo?: string
 ): Promise<PaginatedResponse<MovieWithProjections>> => {
   try {
     const response = await axiosInstance.get<
@@ -75,7 +87,13 @@ export const getDetailedMovies = async (
         projectionDate,
         page: page,
         size: size,
+        locationIds: locationIds,
+        genreIds: genreIds,
+        venueIds: venueIds,
+        timeFrom: timeFrom,
+        timeTo: timeTo,
       },
+      paramsSerializer: { indexes: null },
     });
     return response.data;
   } catch (error) {
