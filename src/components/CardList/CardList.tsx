@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 export interface CardListProps<T> {
   title: string;
-  seeAllUrl: string;
+  seeAllUrl?: string;
   items: T[];
   total: number;
   page: number;
@@ -34,12 +34,14 @@ export function CardList<T>({
     <div className="space-y-4 px-24 my-6 font-primary">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl text-primary font-bold">{title}</h2>
-        <Link
-          to={seeAllUrl}
-          className="text-base font-semibold text-secondary hover:underline"
-        >
-          See All
-        </Link>
+        {seeAllUrl && (
+          <Link
+            to={seeAllUrl}
+            className="text-base font-semibold text-secondary hover:underline"
+          >
+            See All
+          </Link>
+        )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
         {items.map(renderItem)}

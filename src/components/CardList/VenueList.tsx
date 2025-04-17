@@ -25,7 +25,6 @@ export function VenueList() {
   return (
     <CardList
       title="Venues"
-      seeAllUrl="/venues"
       items={data.content}
       total={data.totalElements}
       page={page}

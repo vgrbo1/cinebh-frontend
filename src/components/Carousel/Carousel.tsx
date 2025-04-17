@@ -59,12 +59,12 @@ export function Carousel() {
               {movie.synopsis}
             </p>
 
-            <button
+            {/* <button
               className="w-fit rounded-lg px-5 py-3 font-semibold mt-4 transition-colors duration-200 
             bg-secondary text-white hover:bg-secondary/90 border-secondary "
             >
               Buy Ticket
-            </button>
+            </button> */}
           </div>
         </div>
       ))}
