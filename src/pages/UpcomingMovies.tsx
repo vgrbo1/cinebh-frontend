@@ -15,7 +15,7 @@ import { PaginatedResponse } from "../types/api/PaginatedResponse";
 import { FilterOptionsResponse } from "../types/model/FilterOptionsResponse";
 import { Movie } from "../types/model/Movie";
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 12;
 export function UpcomingMovies() {
   const [title, setTitle] = useState<string>("");
   const [debouncedTitle] = useDebounce(title, 500);
