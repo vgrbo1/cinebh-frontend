@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 export interface CardListProps<T> {
   title: string;
-  seeAllUrl: string;
+  seeAllUrl?: string;
   items: T[];
   total: number;
   page: number;
@@ -31,27 +31,36 @@ export function CardList<T>({
   const hasPrev = page > 1;
 
   return (
-    <div className="space-y-4 px-24 my-6">
+    <div className="space-y-4 px-24 my-6 font-primary">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl text-primary font-bold">{title}</h2>
-        <Link to={seeAllUrl} className="text-sm text-secondary hover:underline">
-          See All
-        </Link>
+        {seeAllUrl && (
+          <Link
+            to={seeAllUrl}
+            className="text-base font-semibold text-secondary hover:underline"
+          >
+            See All
+          </Link>
+        )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
         {items.map(renderItem)}
       </div>
 
-      <div className="flex justify-end items-center gap-4 text-sm text-gray-600">
-        <span>
-          Showing {from}-{to} of {total}
+      <div className="flex justify-end items-center gap-4">
+        <span className="text-base text-primary">
+          Showing{" "}
+          <span className="font-semibold">
+            {from}-{to}
+          </span>{" "}
+          of <span className="font-semibold">{total}</span>
         </span>
         <div className="flex gap-2">
           <button
             type="button"
             onClick={() => onPageChange(page - 1)}
             disabled={!hasPrev}
-            className="p-4 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
+            className="p-3 w-12 h-12 flex items-center justify-center rounded-lg border border-customGray bg-white hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
@@ -59,7 +68,7 @@ export function CardList<T>({
             type="button"
             onClick={() => onPageChange(page + 1)}
             disabled={!hasNext}
-            className="p-4 flex items-center justify-center rounded-md border border-gray-300 bg-white hover:bg-gray-100 disabled:opacity-50"
+            className="p-3 w-12 h-12 flex items-center justify-center rounded-lg border border-customGray bg-white hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
           >
             <FontAwesomeIcon icon={faArrowRight} />
           </button>

@@ -15,7 +15,7 @@ export function Carousel() {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-    }, 4000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [data]);
@@ -33,7 +33,7 @@ export function Carousel() {
       {data.map((movie, i) => (
         <div
           key={movie.id}
-          className={`absolute inset-0 transition-opacity duration-700 ${
+          className={`absolute inset-0 transition-opacity duration-1000 ${
             i === currentIndex ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -48,23 +48,23 @@ export function Carousel() {
               {movie.genres.map((genre) => (
                 <span
                   key={genre.id}
-                  className="bg-white text-xs text-black p-1 rounded font-normal"
+                  className="bg-customGray text-sm text-customDarkCyanBlue px-2 py-1.5 rounded-lg font-normal"
                 >
                   {genre.name}
                 </span>
               ))}
             </div>
-            <h2 className="text-white text-2xl font-bold">{movie.title}</h2>
-            <p className="text-white text-sm sm:text-base font-bold line-clamp-3">
+            <h2 className="text-white text-5xl font-bold">{movie.title}</h2>
+            <p className="text-white text-xl sm:text-base font-bold line-clamp-3">
               {movie.synopsis}
             </p>
 
-            <button
-              className="w-fit rounded px-4 py-2 font-medium border mt-4 transition-colors duration-200 
+            {/* <button
+              className="w-fit rounded-lg px-5 py-3 font-semibold mt-4 transition-colors duration-200 
             bg-secondary text-white hover:bg-secondary/90 border-secondary "
             >
               Buy Ticket
-            </button>
+            </button> */}
           </div>
         </div>
       ))}
@@ -73,8 +73,8 @@ export function Carousel() {
         {data.map((_, i) => (
           <span
             key={i}
-            className={`w-6 h-1 cursor-pointer transition-colors ${
-              i === currentIndex ? "bg-white" : "bg-gray-400"
+            className={`w-7.5 h-1 rounded-sm cursor-pointer transition-colors ${
+              i === currentIndex ? "bg-customWhite" : "bg-customDarkGray2"
             }`}
             onClick={() => setCurrentIndex(i)}
           />

@@ -7,14 +7,14 @@ interface SearchBarInputProps {
 
 export function SearchBar({ title, setTitle }: SearchBarInputProps) {
   return (
-    <div className="relative w-full">
-      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg">
+    <div className="relative w-full text-base font-primary">
+      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-customDarkCyanBlue">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </span>
       <input
         type="text"
         placeholder="Search Movies"
-        className="pl-10 pr-4 border border-gray-200 p-2 rounded w-full shadow-md h-12"
+        className="pl-10 pr-4 border border-customGray text-customDarkGray p-2 rounded-lg w-full shadow-light-50 h-12"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />

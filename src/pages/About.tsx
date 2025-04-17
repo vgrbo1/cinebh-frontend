@@ -5,7 +5,7 @@ export function About() {
     <Layout>
       <div className="mx-auto px-14 py-16 font-primary">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="text-2xl font-semibold mt-24">
+          <div className="text-2xl font-bold mt-24">
             <h5>About Our Dream.</h5>
             <h5>Our History.</h5>
             <h5>Cinema.</h5>

@@ -3,5 +3,39 @@
 @theme {
   --color-primary: #1d2939;
   --color-secondary: #b22222;
+  --color-customGray: #e4e7ec;
+  --color-customWhite: #f9fafb;
+  --color-customDarkGray: #667085;
+  --color-customDarkGray2: #98a2b3;
+  --color-customDarkCyanBlue: #344054;
+  --color-customDarkCyanBlue2: #475467;
   --font-primary: "Urbanist", sans-serif;
+  --text-px-4: 4px;
+  --text-px-6: 6px;
+  --text-px-8: 8px;
+  --text-px-10: 10px;
+  --text-px-12: 12px;
+  --text-px-14: 14px;
+  --text-px-16: 16px;
+  --text-px-18: 18px;
+  --text-px-20: 20px;
+  --text-px-24: 24px;
+  --text-px-28: 28px;
+  --text-px-32: 32px;
+  --text-px-36: 36px;
+  --text-px-40: 40px;
+  --text-px-48: 48px;
+  --text-px-56: 56px;
+  --text-px-64: 64px;
+}
+
+@layer utilities {
+  .shadow-light-50 {
+    box-shadow: 0px 1px 2px -2px rgba(52, 64, 84, 0.08),
+      0px 1px 3px -1px rgba(52, 64, 84, 0.08);
+  }
+  .shadow-light-100 {
+    box-shadow: 0px 2px 4px -2px rgba(52, 64, 84, 0.08),
+      0px 4px 6px -1px rgba(52, 64, 84, 0.08);
+  }
 }

@@ -26,15 +26,37 @@ export function DateSelector({ date, setDate }: DateSelectorProps) {
         <button
           key={d.full}
           onClick={() => setDate(d.full)}
-          className={`flex flex-col items-center p-4 rounded transition w-full shadow-md ${
-            date === d.full ? "bg-secondary text-white" : "bg-white text-black"
+          className={`flex flex-col items-center p-4 rounded-lg transition w-full shadow-light-50  cursor-pointer  ${
+            date === d.full
+              ? "bg-secondary text-white"
+              : "bg-white text-primary border border-customGray"
           }`}
         >
-          <span className="font-semibold text-base">{d.label}</span>
+          <span
+            className={`${
+              date === d.full
+                ? "font-bold text-px-20"
+                : "font-semibold text-base"
+            } font-primary`}
+          >
+            {d.label}
+          </span>
           {d.isToday ? (
-            <span className="text-base">Today</span>
+            <span
+              className={`text-px-16 font-primary ${
+                date === d.full ? "text-white" : "text-customDarkGray"
+              }`}
+            >
+              Today
+            </span>
           ) : (
-            <span className="text-base">{d.weekday}</span>
+            <span
+              className={`text-px-16 font-primary ${
+                date === d.full ? "text-white" : "text-customDarkGray"
+              }`}
+            >
+              {d.weekday}
+            </span>
           )}
         </button>
       ))}

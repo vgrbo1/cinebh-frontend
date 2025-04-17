@@ -1,5 +1,6 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router";
 
 export interface PricingCardProps {
   title: string;
@@ -18,8 +19,8 @@ export function PricingCard({
     <div
       className={`border rounded-xl p-6 font-primary transition-all duration-300 flex flex-col justify-between ${
         highlighted
-          ? "border-gray-400 shadow-lg bg-white transform -translate-y-6 pt-10 pb-16"
-          : "border-gray-200 shadow-sm"
+          ? "border-customDarkGray2 shadow-light-100 bg-white transform -translate-y-6 pt-10 pb-16"
+          : "border-customGray shadow-sm"
       }`}
     >
       <div>
@@ -45,15 +46,16 @@ export function PricingCard({
         </ul>
       </div>
 
-      <button
-        className={`w-fit self-center rounded px-4 py-2 font-medium border mt-10 transition-colors duration-200 ${
+      <Link
+        to={"/currently-showing"}
+        className={`w-fit self-center rounded-lg px-5 py-3 font-semibold border mt-10 transition-colors duration-200 ${
           highlighted
             ? "bg-secondary text-white hover:bg-secondary/90 border-secondary"
-            : "text-secondary border-secondary hover:bg-secondary hover:text-white"
+            : "text-secondary border-secondary border hover:bg-secondary hover:text-white"
         }`}
       >
         Explore Movies
-      </button>
+      </Link>
     </div>
   );
 }

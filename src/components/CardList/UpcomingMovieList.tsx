@@ -25,7 +25,7 @@ export function UpcomingMovieList() {
   return (
     <CardList
       title="Upcoming Movies"
-      seeAllUrl="/movies/upcoming"
+      seeAllUrl="/upcoming-movies"
       items={data.content}
       total={data.totalElements}
       page={page}

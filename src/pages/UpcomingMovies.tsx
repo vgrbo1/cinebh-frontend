@@ -5,27 +5,23 @@ import {
 } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
+import { UpcomingMovieCard } from "../components/Card/UpcomingMovieCard";
 import { Layout } from "../components/Layout/Layout";
-import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
 import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
 import { getFormOptions } from "../services/filterService";
-import { getDetailedMovies } from "../services/movieService";
+import { getUpcomingMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
 import { FilterOptionsResponse } from "../types/model/FilterOptionsResponse";
-import { MovieWithProjections } from "../types/model/MovieWithProjections";
+import { Movie } from "../types/model/Movie";
 
-const PAGE_SIZE = 10;
-export function CurrentlyShowing() {
+const PAGE_SIZE = 12;
+export function UpcomingMovies() {
   const [title, setTitle] = useState<string>("");
-  const [date, setDate] = useState<string>(
-    () => new Date().toISOString().split("T")[0]
-  );
+  const [debouncedTitle] = useDebounce(title, 500);
   const [genreIds, setGenreIds] = useState<number[]>([]);
   const [locationIds, setLocationIds] = useState<number[]>([]);
   const [venueIds, setVenueIds] = useState<number[]>([]);
-  const [fromTime, setFromTime] = useState<string | undefined>(undefined);
-  const [toTime, setToTime] = useState<string | undefined>(undefined);
 
   const { data: filterOptions } = useQuery<FilterOptionsResponse>({
     queryKey: ["filter-options"],
@@ -33,89 +29,72 @@ export function CurrentlyShowing() {
     placeholderData: keepPreviousData,
   });
 
-  const [debouncedTitle] = useDebounce(title, 500);
   const { data, error, fetchNextPage, hasNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: [
-        "currently-showing",
+        "upcoming-movies",
         debouncedTitle,
-        date,
-        genreIds,
         locationIds,
+        genreIds,
         venueIds,
-        fromTime,
-        toTime,
       ],
       queryFn: (pageParam) =>
-        getDetailedMovies(
-          debouncedTitle,
-          date,
+        getUpcomingMovies(
           pageParam.pageParam,
           PAGE_SIZE,
+          debouncedTitle,
           locationIds,
           genreIds,
-          venueIds,
-          fromTime,
-          toTime
+          venueIds
         ),
-      initialPageParam: 0,
+      initialPageParam: 1,
       getNextPageParam: (lastPage) => {
         if (lastPage.last) return undefined;
-        return lastPage.number + 1;
+        return lastPage.number + 2;
       },
       placeholderData: keepPreviousData,
     });
 
   const movies =
-    data?.pages.flatMap(
-      (page: PaginatedResponse<MovieWithProjections>) => page.content
-    ) ?? [];
+    data?.pages.flatMap((page: PaginatedResponse<Movie>) => page.content) ?? [];
 
   return (
     <Layout>
       <div className="px-24">
         <h1 className="font-bold font-primary text-primary text-3xl pt-10">
           {movies.length === 0
-            ? "Currently Showing"
-            : `Currently Showing (${movies.length})`}
+            ? "Upcoming Movies"
+            : `Upcoming Movies (${movies.length})`}
         </h1>
         {filterOptions && (
           <SearchForm
             title={title}
             setTitle={setTitle}
-            date={date}
-            setDate={setDate}
-            hasDateSelector={true}
             genres={filterOptions.genres}
             locations={filterOptions.locations}
             venues={filterOptions.venues}
             onGenreIdsChange={setGenreIds}
             onLocationIdsChange={setLocationIds}
             onVenueIdsChange={setVenueIds}
-            fromTime={fromTime}
-            toTime={toTime}
-            setFromTime={setFromTime}
-            setToTime={setToTime}
           />
         )}
-        <p className="text-sm text-customDarkGray italic">
-          Quick reminder that our cinema schedule is on a ten-day update cycle
-        </p>
 
-        {error && <div>Error loading current movies</div>}
+        {error && (
+          <div className="text-red-500 mt-4">Error loading upcoming movies</div>
+        )}
 
-        {isLoading && <div>Loading current movies...</div>}
+        {isLoading && <div className="mt-4">Loading upcoming movies...</div>}
       </div>
 
       {!isLoading && !error && (
-        <div className="my-10">
+        <>
           {movies.length === 0 ? (
-            <NoMoviesCard text="Current" />
+            <NoMoviesCard text="Upcoming" />
           ) : (
             <>
-              <div className="flex flex-col space-y-6">
-                {movies.map((movie: MovieWithProjections) => (
-                  <MovieDetailCard movie={movie} key={movie.id} />
+              <div className="px-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
+                {movies.map((movie: Movie) => (
+                  <UpcomingMovieCard {...movie} key={movie.id} />
                 ))}
               </div>
               {hasNextPage && (
@@ -130,7 +109,7 @@ export function CurrentlyShowing() {
               )}
             </>
           )}
-        </div>
+        </>
       )}
     </Layout>
   );
