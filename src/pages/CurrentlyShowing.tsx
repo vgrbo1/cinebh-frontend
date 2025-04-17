@@ -1,12 +1,18 @@
-import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useInfiniteQuery,
+  useQuery,
+} from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Layout } from "../components/Layout/Layout";
 import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
 import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
+import { getFormOptions } from "../services/filterService";
 import { getDetailedMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
+import { FilterOptionsResponse } from "../types/model/FilterOptionsResponse";
 import { MovieWithProjections } from "../types/model/MovieWithProjections";
 
 const PAGE_SIZE = 10;
@@ -15,12 +21,43 @@ export function CurrentlyShowing() {
   const [date, setDate] = useState<string>(
     () => new Date().toISOString().split("T")[0]
   );
+  const [genreIds, setGenreIds] = useState<number[]>([]);
+  const [locationIds, setLocationIds] = useState<number[]>([]);
+  const [venueIds, setVenueIds] = useState<number[]>([]);
+  const [fromTime, setFromTime] = useState<string | undefined>(undefined);
+  const [toTime, setToTime] = useState<string | undefined>(undefined);
+
+  const { data: filterOptions } = useQuery<FilterOptionsResponse>({
+    queryKey: ["filter-options"],
+    queryFn: () => getFormOptions(),
+    placeholderData: keepPreviousData,
+  });
+
   const [debouncedTitle] = useDebounce(title, 500);
   const { data, error, fetchNextPage, hasNextPage, isLoading } =
     useInfiniteQuery({
-      queryKey: ["currently-showing", debouncedTitle, date],
+      queryKey: [
+        "currently-showing",
+        debouncedTitle,
+        date,
+        genreIds,
+        locationIds,
+        venueIds,
+        fromTime,
+        toTime,
+      ],
       queryFn: (pageParam) =>
-        getDetailedMovies(debouncedTitle, date, pageParam.pageParam, PAGE_SIZE),
+        getDetailedMovies(
+          debouncedTitle,
+          date,
+          pageParam.pageParam,
+          PAGE_SIZE,
+          locationIds,
+          genreIds,
+          venueIds,
+          fromTime,
+          toTime
+        ),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => {
         if (lastPage.last) return undefined;
@@ -42,13 +79,25 @@ export function CurrentlyShowing() {
             ? "Currently Showing"
             : `Currently Showing (${movies.length})`}
         </h1>
-        <SearchForm
-          title={title}
-          setTitle={setTitle}
-          date={date}
-          setDate={setDate}
-          hasDateSelector={true}
-        />
+        {filterOptions && (
+          <SearchForm
+            title={title}
+            setTitle={setTitle}
+            date={date}
+            setDate={setDate}
+            hasDateSelector={true}
+            genres={filterOptions.genres}
+            locations={filterOptions.locations}
+            venues={filterOptions.venues}
+            onGenreIdsChange={setGenreIds}
+            onLocationIdsChange={setLocationIds}
+            onVenueIdsChange={setVenueIds}
+            fromTime={fromTime}
+            toTime={toTime}
+            setFromTime={setFromTime}
+            setToTime={setToTime}
+          />
+        )}
         <p className="text-sm text-customDarkGray italic">
           Quick reminder that our cinema schedule is on a ten-day update cycle
         </p>
