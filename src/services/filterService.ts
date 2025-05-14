@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 export const getFormOptions = async (): Promise<FilterOptionsResponse> => {
   try {
     const response = await axiosInstance.get<FilterOptionsResponse>(
-      "/api/forms/movie"
+      "/api/public/forms/movie"
     );
     return response.data;
   } catch (error) {
