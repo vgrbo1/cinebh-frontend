@@ -1,26 +1,35 @@
+import React from "react";
 import { Input, InputProps } from "./Input";
 
-interface FormInputProps extends InputProps {
+export interface FormInputProps extends InputProps {
   label?: string;
   error?: string;
 }
 
-export function FormInput({ label, error, ...inputProps }: FormInputProps) {
-  return (
-    <div className="mb-4 w-full">
-      {label && (
-        <label
-          className={`text-base mb-1 block ${
-            error ? "text-customLightRed" : "text-white"
-          }`}
-        >
-          {label}
-        </label>
-      )}
+export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
+  ({ label, error, ...inputProps }, ref) => {
+    return (
+      <div className="mb-4 w-full">
+        {label && (
+          <label
+            className={`text-base mb-1 block ${
+              error ? "text-customLightRed" : "text-white"
+            }`}
+          >
+            {label}
+          </label>
+        )}
 
-      <Input {...inputProps} />
+        <Input
+          ref={ref}
+          className={error ? "border-customLightRed" : "border-customGray"}
+          {...inputProps}
+        />
 
-      {error && <p className="mt-1 text-xs text-customLightRed">{error}</p>}
-    </div>
-  );
-}
+        {error && <p className="mt-1 text-xs text-customLightRed">{error}</p>}
+      </div>
+    );
+  }
+);
+
+FormInput.displayName = "FormInput";
