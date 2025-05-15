@@ -1,5 +1,6 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/Logo.png";
 type AuthView = "login" | "signup" | "reset";
@@ -29,9 +30,13 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({
 
   return (
     <div
-      className={`fixed top-20 right-0 h-full w-lg bg-primary shadow-lg transform transition-transform duration-300 z-50 ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      }`}
+      className={clsx(
+        "fixed top-0 right-0 h-full w-full sm:w-lg bg-primary shadow-lg transform transition-transform duration-300 z-50",
+        {
+          "translate-x-0": isOpen,
+          "translate-x-full": !isOpen,
+        }
+      )}
     >
       <div className="w-full h-full flex flex-col items-center text-white px-4 py-8 font-primary">
         <div className="w-full max-w-[400px] mb-8 flex justify-center">
