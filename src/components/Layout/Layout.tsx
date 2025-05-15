@@ -3,11 +3,11 @@ import { AuthDrawer } from "../AuthDrawer/AuthDrawer";
 import { Footer } from "../Footer/Footer";
 import { Navbar } from "../Navbar/Navbar";
 
+export type AuthView = "login" | "signup" | "reset";
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [authView, setAuthView] = useState<"login" | "signup" | "reset">(
-    "login"
-  );
+  const [authView, setAuthView] = useState<AuthView>("login");
 
   return (
     <div className="relative flex flex-col min-h-screen">

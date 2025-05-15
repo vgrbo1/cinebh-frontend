@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/Logo.png";
-type AuthView = "login" | "signup" | "reset";
+import { AuthView } from "../Layout/Layout";
 
 interface AuthDrawerProps {
   isOpen: boolean;
