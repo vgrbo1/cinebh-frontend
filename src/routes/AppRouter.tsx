@@ -4,6 +4,7 @@ import { CurrentlyShowing } from "../pages/CurrentlyShowing";
 import { Home } from "../pages/Home";
 import { Pricing } from "../pages/Pricing";
 import { UpcomingMovies } from "../pages/UpcomingMovies";
+import { VerifyEmailPage } from "../pages/VerifyEmailPage";
 
 function AppRouter() {
   return (
@@ -13,6 +14,7 @@ function AppRouter() {
       <Route path="/tickets" element={<Pricing />} />
       <Route path="/currently-showing" element={<CurrentlyShowing />} />
       <Route path="/upcoming-movies" element={<UpcomingMovies />} />
+      <Route path="/confirmation" element={<VerifyEmailPage />} />
     </Routes>
   );
 }
