@@ -1,7 +1,7 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router";
-
+import { useNavigate } from "react-router";
+import { Button } from "../Button/Button";
 export interface PricingCardProps {
   title: string;
   price: string;
@@ -15,6 +15,7 @@ export function PricingCard({
   features,
   highlighted = false,
 }: PricingCardProps) {
+  const navigate = useNavigate();
   return (
     <div
       className={`border rounded-xl p-6 font-primary transition-all duration-300 flex flex-col justify-between ${
@@ -46,16 +47,13 @@ export function PricingCard({
         </ul>
       </div>
 
-      <Link
-        to={"/currently-showing"}
-        className={`w-fit self-center rounded-lg px-5 py-3 font-semibold border mt-10 transition-colors duration-200 ${
-          highlighted
-            ? "bg-secondary text-white hover:bg-secondary/90 border-secondary"
-            : "text-secondary border-secondary border hover:bg-secondary hover:text-white"
-        }`}
+      <Button
+        variant={highlighted ? "secondary" : "outline"}
+        className="w-fit self-center"
+        onClick={() => navigate("/currently-showing")}
       >
         Explore Movies
-      </Link>
+      </Button>
     </div>
   );
 }

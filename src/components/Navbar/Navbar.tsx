@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import logo from "../../assets/logo.png";
+import { Button } from "../Button/Button";
 
 type NavbarProps = {
   onToggleLogin: () => void;
@@ -20,12 +21,9 @@ export function Navbar({ onToggleLogin }: NavbarProps) {
             Upcoming Movies
           </Link>
         </div>
-        <button
-          onClick={onToggleLogin}
-          className="bg-primary h-12 text-white rounded-lg border font-semibold border-white px-5 py-3"
-        >
+        <Button variant="primary" onClick={onToggleLogin}>
           Sign In
-        </button>
+        </Button>
       </div>
     </nav>
   );

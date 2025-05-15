@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-import { Pagination } from "../Pagination/Pagionation";
+import { Pagination } from "../Pagination/Pagination";
 
 export interface CardListProps<T> {
   title: string;
