@@ -12,7 +12,7 @@ interface AuthDrawerProps {
   setView: (view: AuthView) => void;
 }
 
-const AuthDrawer: React.FC<AuthDrawerProps> = ({
+export const AuthDrawer: React.FC<AuthDrawerProps> = ({
   isOpen,
   view,
   setView,
@@ -62,5 +62,3 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({
     </div>
   );
 };
-
-export default AuthDrawer;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AuthDrawer from "../AuthDrawer/AuthDrawer";
+import { AuthDrawer } from "../AuthDrawer/AuthDrawer";
 import { Footer } from "../Footer/Footer";
 import { Navbar } from "../Navbar/Navbar";
 
