@@ -10,7 +10,7 @@ export const getCurrentMovies = async (
 ): Promise<PaginatedResponse<Movie>> => {
   try {
     const response = await axiosInstance.get<PaginatedResponse<Movie>>(
-      "/api/movies/current",
+      "/api/public/movies/current",
       {
         params: {
           page: page - 1,
@@ -35,7 +35,7 @@ export const getUpcomingMovies = async (
 ): Promise<PaginatedResponse<Movie>> => {
   try {
     const response = await axiosInstance.get<PaginatedResponse<Movie>>(
-      "/api/movies/upcoming",
+      "/api/public/movies/upcoming",
       {
         params: {
           page: page - 1,
@@ -58,7 +58,7 @@ export const getUpcomingMovies = async (
 export const getMovieCarousels = async (): Promise<MovieCarousel[]> => {
   try {
     const response = await axiosInstance.get<MovieCarousel[]>(
-      "/api/movies/latest"
+      "/api/public/movies/latest"
     );
     return response.data;
   } catch (error) {
@@ -81,7 +81,7 @@ export const getDetailedMovies = async (
   try {
     const response = await axiosInstance.get<
       PaginatedResponse<MovieWithProjections>
-    >("/api/movies/detailed", {
+    >("/api/public/movies/detailed", {
       params: {
         title: title,
         projectionDate,

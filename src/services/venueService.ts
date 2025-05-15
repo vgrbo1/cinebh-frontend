@@ -8,7 +8,7 @@ export const getVenues = async (
 ): Promise<PaginatedResponse<Venue>> => {
   try {
     const response = await axiosInstance.get<PaginatedResponse<Venue>>(
-      "/api/venues",
+      "/api/public/venues",
       {
         params: {
           page: page - 1,

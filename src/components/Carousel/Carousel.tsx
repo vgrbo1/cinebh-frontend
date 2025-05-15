@@ -34,7 +34,9 @@ export function Carousel() {
         <div
           key={movie.id}
           className={`absolute inset-0 transition-opacity duration-1000 ${
-            i === currentIndex ? "opacity-100" : "opacity-0"
+            i === currentIndex
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
           }`}
         >
           <img
