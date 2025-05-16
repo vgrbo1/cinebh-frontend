@@ -14,7 +14,7 @@ function AppRouter() {
       <Route path="/tickets" element={<Pricing />} />
       <Route path="/currently-showing" element={<CurrentlyShowing />} />
       <Route path="/upcoming-movies" element={<UpcomingMovies />} />
-      <Route path="/confirmation" element={<VerifyEmailPage />} />
+      <Route path="/email/confirm" element={<VerifyEmailPage />} />
     </Routes>
   );
 }
