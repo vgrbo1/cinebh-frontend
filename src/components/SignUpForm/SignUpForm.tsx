@@ -7,9 +7,11 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import clsx from "clsx";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useForm } from "react-hook-form";
+import { ERROR_CODES } from "../../constants/errorCodes";
 import { signUp } from "../../services/authService";
 import { SignUpFormData, signUpSchema } from "../../validation/signUpSchema";
 import { Button } from "../Button/Button";
@@ -58,7 +60,11 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
     const password = watch("password");
     const confirmPassword = watch("confirmPassword");
 
-    const mutation = useMutation({
+    const mutation = useMutation<
+      void,
+      AxiosError<{ code: string }>,
+      SignUpFormData
+    >({
       mutationFn: signUp,
       onSuccess: () => {
         reset();
@@ -66,7 +72,7 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
         setHeading("You're all set! 🎉");
       },
       onError: (error: any) => {
-        if (error?.response?.data?.code === "ENTITY_EXISTS") {
+        if (error?.response?.data?.code === ERROR_CODES.ENTITY_EXISTS) {
           setError("email", {
             type: "server",
             message: "Email already exists",
