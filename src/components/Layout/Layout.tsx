@@ -7,7 +7,7 @@ export type AuthView = "login" | "signup" | "reset";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [authView, setAuthView] = useState<AuthView>("login");
+  const [authView, setAuthView] = useState<AuthView>("signup");
 
   return (
     <div className="relative flex flex-col min-h-screen">
@@ -17,7 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <AuthDrawer
         isOpen={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        setIsOpen={setDrawerOpen}
         view={authView}
         setView={setAuthView}
       />
