@@ -62,7 +62,7 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
 
     const mutation = useMutation<
       void,
-      AxiosError<{ code: string }>,
+      AxiosError<{ code: string; message: string }>,
       SignUpFormData
     >({
       mutationFn: signUp,
@@ -75,7 +75,7 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
         if (error?.response?.data?.code === ERROR_CODES.ENTITY_EXISTS) {
           setError("email", {
             type: "server",
-            message: "Email already exists",
+            message: error.response.data.message,
           });
         } else {
           console.error("Unexpected error:", error);
