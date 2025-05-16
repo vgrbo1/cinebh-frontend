@@ -60,7 +60,7 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
     const password = watch("password");
     const confirmPassword = watch("confirmPassword");
 
-    const mutation = useMutation<
+    const signUpMutation = useMutation<
       void,
       AxiosError<{ code: string; message: string }>,
       SignUpFormData
@@ -84,7 +84,7 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
     });
 
     const onSubmit = (data: SignUpFormData) => {
-      mutation.mutate(data);
+      signUpMutation.mutate(data);
     };
 
     return (

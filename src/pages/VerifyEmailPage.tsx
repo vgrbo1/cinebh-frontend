@@ -8,7 +8,7 @@ export function VerifyEmailPage() {
   const navigate = useNavigate();
   const token = searchParams.get("token");
 
-  const { mutate, status } = useMutation({
+  const verifyEmailMutatation = useMutation({
     mutationFn: verifyEmail,
     onSuccess: () => {
       setTimeout(() => navigate("/"), 4000);
@@ -17,7 +17,7 @@ export function VerifyEmailPage() {
 
   useEffect(() => {
     if (token) {
-      mutate(token);
+      verifyEmailMutatation.mutate(token);
     }
   }, [token]);
 
@@ -29,11 +29,11 @@ export function VerifyEmailPage() {
         <p className="text-red-500 text-lg">No token provided in the URL.</p>
       )}
 
-      {token && status === "pending" && (
+      {token && verifyEmailMutatation.status === "pending" && (
         <p className="text-lg text-customGray2">Verifying your email...</p>
       )}
 
-      {status === "success" && (
+      {verifyEmailMutatation.status === "success" && (
         <div>
           <h2 className="text-2xl font-bold text-customGray2 mb-2">
             ✅ Email Verified!
@@ -42,7 +42,7 @@ export function VerifyEmailPage() {
         </div>
       )}
 
-      {status === "error" && (
+      {verifyEmailMutatation.status === "error" && (
         <div>
           <h2 className="text-2xl font-bold text-red-500 mb-2">
             ⚠️ Verification Failed
