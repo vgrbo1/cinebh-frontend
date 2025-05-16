@@ -11,7 +11,7 @@ export function VerifyEmailPage() {
   const verifyEmailMutatation = useMutation({
     mutationFn: verifyEmail,
     onSuccess: () => {
-      setTimeout(() => navigate("/"), 4000);
+      setTimeout(() => navigate("/"), 5000);
     },
   });
 
@@ -38,7 +38,9 @@ export function VerifyEmailPage() {
           <h2 className="text-2xl font-bold text-customGray2 mb-2">
             ✅ Email Verified!
           </h2>
-          <p className="text-customGray2">Redirecting to the homepage...</p>
+          <p className="text-customGray2">
+            You will be redirected to the homepage in 5 seconds.
+          </p>
         </div>
       )}
 
