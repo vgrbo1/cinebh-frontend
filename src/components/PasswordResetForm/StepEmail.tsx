@@ -21,7 +21,6 @@ export function StepEmail({ setStep, setEmail }: StepEmailProps) {
   const {
     register,
     handleSubmit,
-    setError,
     watch,
     reset,
     formState: { errors },
@@ -30,7 +29,7 @@ export function StepEmail({ setStep, setEmail }: StepEmailProps) {
   });
 
   const email = watch("email");
-  const mutation = useMutation({
+  const sendResetEmailMutation = useMutation({
     mutationFn: (data: StepEmailData) => sendResetEmail(data.email),
     onSuccess: () => {
       setEmail(email);
@@ -39,7 +38,7 @@ export function StepEmail({ setStep, setEmail }: StepEmailProps) {
     },
   });
 
-  const onSubmit = (data: StepEmailData) => mutation.mutate(data);
+  const onSubmit = (data: StepEmailData) => sendResetEmailMutation.mutate(data);
 
   return (
     <>

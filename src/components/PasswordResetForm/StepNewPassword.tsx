@@ -40,7 +40,7 @@ export function StepNewPassword({ setStep, code }: StepPasswordProps) {
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
 
-  const mutation = useMutation({
+  const changePasswordMutation = useMutation({
     mutationFn: ({ data, code }: ChangePasswordMutationInput) =>
       changePassword(data.password, code),
     onSuccess: () => {
@@ -53,7 +53,7 @@ export function StepNewPassword({ setStep, code }: StepPasswordProps) {
   });
 
   const onSubmit = (data: StepNewPasswordData) =>
-    mutation.mutate({ data, code });
+    changePasswordMutation.mutate({ data, code });
 
   return (
     <>
