@@ -26,3 +26,13 @@ export const sendResetEmail = async (email: string) => {
   return response.data;
 };
 
+export const changePassword = async (newPassword: string, code: string) => {
+  const response = await axiosInstance.post(
+    "/api/public/auth/password/change",
+    {
+      newPassword,
+      code,
+    }
+  );
+  return response.data;
+};
