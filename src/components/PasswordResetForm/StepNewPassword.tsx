@@ -109,7 +109,7 @@ export function StepNewPassword({ setStep, code }: StepPasswordProps) {
             )
           }
           onSuffixClick={() => setShowConfirmPassword((prev) => !prev)}
-          error={errors.password?.message}
+          error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
         />
         <Button variant="secondary" type="submit" className="w-full mt-4">
