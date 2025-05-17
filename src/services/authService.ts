@@ -15,3 +15,14 @@ export const verifyEmail = async (token: string) => {
   });
   return response.data;
 };
+
+export const sendResetEmail = async (email: string) => {
+  const response = await axiosInstance.post(
+    "/api/public/auth/password/reset/send",
+    {
+      email,
+    }
+  );
+  return response.data;
+};
+
