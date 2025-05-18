@@ -1,3 +1,4 @@
+import { User } from "../types/model/User";
 import { SignUpFormData } from "../validation/signUpSchema";
 import axiosInstance from "./axiosInstance";
 
@@ -42,7 +43,7 @@ export const signIn = async (
   password: string,
   isRememberMe: boolean
 ) => {
-  const response = await axiosInstance.post("/api/public/auth/login", {
+  const response = await axiosInstance.post<User>("/api/public/auth/login", {
     email,
     password,
     isRememberMe,
