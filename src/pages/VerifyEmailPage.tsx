@@ -26,7 +26,9 @@ export function VerifyEmailPage() {
       <img src={logo} alt="Cinebh logo" className="h-10 mb-6" />
 
       {!token && (
-        <p className="text-red-500 text-lg">No token provided in the URL.</p>
+        <p className="text-customLightRed text-lg">
+          No token provided in the URL.
+        </p>
       )}
 
       {token && verifyEmailMutatation.status === "pending" && (
@@ -46,7 +48,7 @@ export function VerifyEmailPage() {
 
       {verifyEmailMutatation.status === "error" && (
         <div>
-          <h2 className="text-2xl font-bold text-red-500 mb-2">
+          <h2 className="text-2xl font-bold text-customLightRed mb-2">
             ⚠️ Verification Failed
           </h2>
           <p className="text-customGray2">
