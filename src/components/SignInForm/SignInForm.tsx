@@ -13,24 +13,22 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ERROR_CODES } from "../../constants/errorCodes";
 import { signIn } from "../../services/authService";
+import { useAuthStore } from "../../store/useAuthStore";
+import { User } from "../../types/model/User";
 import { SignInFormData, signInSchema } from "../../validation/signInSchema";
 import { Button } from "../Button/Button";
 import { FormInput } from "../Input/FormInput";
-interface LoginFormProps {
+interface SignInFormProps {
   setView: (view: "login" | "signup" | "reset") => void;
   setHeading: (heading: string) => void;
   closeDrawer: () => void;
 }
 
-interface SignInMutationData {
-  data: SignInFormData;
-  isRememberMe: boolean;
-}
-export type LoginFormHandle = {
+export type SignInFormHandle = {
   resetForm: () => void;
 };
 
-export const SignInForm = forwardRef<LoginFormHandle, LoginFormProps>(
+export const SignInForm = forwardRef<SignInFormHandle, SignInFormProps>(
   ({ setView, setHeading, closeDrawer }, ref) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
@@ -64,16 +62,17 @@ export const SignInForm = forwardRef<LoginFormHandle, LoginFormProps>(
     const password = watch("password");
 
     const signInMutation = useMutation<
-      void,
+      User,
       AxiosError<{ code: string; message: string }>,
       SignInFormData
     >({
       mutationFn: (data: SignInFormData) =>
         signIn(data.email, data.password, rememberMe),
-      onSuccess: () => {
+      onSuccess: (user) => {
         reset();
         setLoginSuccess(true);
         setHeading("Sign In Successful! 🎉");
+        useAuthStore.getState().setUser(user);
       },
       onError: (error: any) => {
         if (error?.response?.data?.code === ERROR_CODES.EMAIL_NOT_VERIFIED) {
