@@ -1,21 +1,18 @@
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StepEmail } from "./StepEmail";
 import { StepNewPassword } from "./StepNewPassword";
 import { StepVerificationCode } from "./StepVerificationCode";
 interface PasswordResetFormProps {
   setHeading: (heading: string) => void;
 }
-export type PassworResetFormHandle = {
-  resetForm: () => void;
-};
 
-export const PassworResetForm = forwardRef<
-  PassworResetFormHandle,
-  PasswordResetFormProps
->(({ setHeading }, ref) => {
+export function PassworResetForm({ setHeading }: PasswordResetFormProps) {
   const [step, setStep] = useState<number>(1);
   const [email, setEmail] = useState<string>("johndoe@example.com");
   const [code, setCode] = useState<string>("");
+  const [verificationCodeError, setVerificationCodeError] = useState<
+    string | null
+  >(null);
   useEffect(() => {
     if (step === 4) {
       setHeading("Password Reset Successful! 🎉");
@@ -25,8 +22,27 @@ export const PassworResetForm = forwardRef<
   return (
     <div className="w-full max-w-[400px]">
       {step === 1 && <StepEmail setStep={setStep} setEmail={setEmail} />}
-      {step === 2 && <StepVerificationCode email={email} setStep={setStep} setCode={setCode} />}
-      {step === 3 && <StepNewPassword setStep={setStep} code={code} />}
+      {step === 2 && (
+        <StepVerificationCode
+          email={email}
+          setStep={setStep}
+          setCode={setCode}
+          setVerificationCodeError={setVerificationCodeError}
+          verificationCodeError={verificationCodeError}
+        />
+      )}
+      {step === 3 && (
+        <StepNewPassword
+          setStep={setStep}
+          code={code}
+          setVerificationCodeError={setVerificationCodeError}
+        />
+      )}
+      {step === 4 && (
+        <p className="text-center text-sm text-customGray2 mb-4">
+          Please, wait. You will be directed to the homepage.
+        </p>
+      )}
     </div>
   );
-});
+}
