@@ -17,6 +17,8 @@ export function PassworResetForm({ setHeading }: PasswordResetFormProps) {
   useEffect(() => {
     if (step === 4) {
       setHeading("Password Reset Successful! 🎉");
+    } else {
+      setHeading("Reset Password");
     }
   }, [step, setHeading]);
 
