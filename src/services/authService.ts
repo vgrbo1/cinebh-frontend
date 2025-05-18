@@ -36,3 +36,16 @@ export const changePassword = async (newPassword: string, code: string) => {
   );
   return response.data;
 };
+
+export const signIn = async (
+  email: string,
+  password: string,
+  isRememberMe: boolean
+) => {
+  const response = await axiosInstance.post("/api/public/auth/login", {
+    email,
+    password,
+    isRememberMe,
+  });
+  return response.data;
+};
