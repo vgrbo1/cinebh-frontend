@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/Logo.png";
 import { AuthView } from "../Layout/Layout";
 import { PassworResetForm } from "../PasswordResetForm/PasswordResetForm";
+import { SignInForm } from "../SignInForm/SignInForm";
 import { SignUpForm, SignUpFormHandle } from "../SignUpForm/SignUpForm";
 
 interface AuthDrawerProps {
@@ -78,6 +79,13 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
           />
         )}
         {view === "reset" && <PassworResetForm setHeading={setHeading} />}
+        {view === "login" && (
+          <SignInForm
+            setView={setView}
+            setHeading={setHeading}
+            closeDrawer={onClose}
+          />
+        )}
       </div>
     </div>
   );
