@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { StepEmail } from "./StepEmail";
 import { StepNewPassword } from "./StepNewPassword";
+import { StepSuccess } from "./StepSuccess";
 import { StepVerificationCode } from "./StepVerificationCode";
 interface PasswordResetFormProps {
   setHeading: (heading: string) => void;
@@ -38,11 +39,7 @@ export function PassworResetForm({ setHeading }: PasswordResetFormProps) {
           setVerificationCodeError={setVerificationCodeError}
         />
       )}
-      {step === 4 && (
-        <p className="text-center text-sm text-customGray2 mb-4">
-          Please, wait. You will be directed to the homepage.
-        </p>
-      )}
+      {step === 4 && <StepSuccess setStep={setStep} />}
     </div>
   );
 }
