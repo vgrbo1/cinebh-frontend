@@ -50,3 +50,8 @@ export const signIn = async (
   });
   return response.data;
 };
+
+export const logoutUser = async () => {
+  const response = await axiosInstance.post("/api/public/auth/logout");
+  return response.data;
+};

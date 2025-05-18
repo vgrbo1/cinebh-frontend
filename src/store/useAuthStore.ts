@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { logoutUser } from "../services/authService";
 import { User } from "../types/model/User";
 
 interface AuthState {
@@ -17,6 +18,7 @@ export const useAuthStore = create<AuthState>()(
 
       logout: () => {
         set({ user: null });
+        logoutUser();
         localStorage.removeItem("auth-storage");
       },
     }),

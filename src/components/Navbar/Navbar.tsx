@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import logo from "../../assets/logo.png";
 import { useAuthStore } from "../../store/useAuthStore";
@@ -8,7 +9,13 @@ type NavbarProps = {
 };
 
 export function Navbar({ onToggleLogin }: NavbarProps) {
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    setShowDropdown(false);
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-primary font-primary text-white text-base">
@@ -25,7 +32,24 @@ export function Navbar({ onToggleLogin }: NavbarProps) {
           </Link>
         </div>
         {user ? (
-          <Button variant="primary">{user?.email.split("@")[0]}</Button>
+          <div className="relative">
+            <Button
+              variant="primary"
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
+              {user?.email.split("@")[0]}
+            </Button>
+            {showDropdown && (
+              <div className="absolute bg-primary right-0 mt-2 w-48 py-2 rounded-md shadow-lg z-50">
+                <button
+                  className="w-full text-left px-4 py-2 text-white  hover:bg-customDarkCyanBlue cursor-pointer transition duration-150"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <Button variant="primary" onClick={onToggleLogin}>
             Sign In
