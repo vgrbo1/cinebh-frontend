@@ -17,13 +17,18 @@ import { FormInput } from "../Input/FormInput";
 interface StepPasswordProps {
   setStep: (step: number) => void;
   code: string;
+  setVerificationCodeError: (error: string | null) => void;
 }
 
 interface ChangePasswordMutationInput {
   data: StepNewPasswordData;
   code: string;
 }
-export function StepNewPassword({ setStep, code }: StepPasswordProps) {
+export function StepNewPassword({
+  setStep,
+  code,
+  setVerificationCodeError,
+}: StepPasswordProps) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
@@ -48,7 +53,8 @@ export function StepNewPassword({ setStep, code }: StepPasswordProps) {
       setStep(4);
     },
     onError: () => {
-      console.error("Error changing password");
+      setVerificationCodeError("Bad verification code");
+      setStep(2);
     },
   });
 
