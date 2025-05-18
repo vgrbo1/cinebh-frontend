@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import logo from "../../assets/logo.png";
+import { useAuthStore } from "../../store/useAuthStore";
 import { Button } from "../Button/Button";
 
 type NavbarProps = {
@@ -7,6 +8,8 @@ type NavbarProps = {
 };
 
 export function Navbar({ onToggleLogin }: NavbarProps) {
+  const { user } = useAuthStore();
+
   return (
     <nav className="sticky top-0 z-50 bg-primary font-primary text-white text-base">
       <div className="px-24 py-4 flex items-center justify-between">
@@ -21,9 +24,13 @@ export function Navbar({ onToggleLogin }: NavbarProps) {
             Upcoming Movies
           </Link>
         </div>
-        <Button variant="primary" onClick={onToggleLogin}>
-          Sign In
-        </Button>
+        {user ? (
+          <Button variant="primary">{user?.email.split("@")[0]}</Button>
+        ) : (
+          <Button variant="primary" onClick={onToggleLogin}>
+            Sign In
+          </Button>
+        )}
       </div>
     </nav>
   );
