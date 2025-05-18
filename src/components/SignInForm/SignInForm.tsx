@@ -55,6 +55,7 @@ export const SignInForm = forwardRef<SignInFormHandle, SignInFormProps>(
       resetForm: () => {
         reset();
         setLoginSuccess(false);
+        setRememberMe(false);
       },
     }));
 

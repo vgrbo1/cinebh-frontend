@@ -87,14 +87,18 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
             setView={setView}
             setHeading={setHeading}
             closeDrawer={onClose}
+            ref={signUpRef}
           />
         )}
-        {view === "reset" && <PassworResetForm setHeading={setHeading} />}
+        {view === "reset" && (
+          <PassworResetForm setHeading={setHeading} ref={passwordResetRef} />
+        )}
         {view === "login" && (
           <SignInForm
             setView={setView}
             setHeading={setHeading}
             closeDrawer={onClose}
+            ref={signInRef}
           />
         )}
       </div>
