@@ -4,8 +4,11 @@ import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/Logo.png";
 import { AuthView } from "../Layout/Layout";
-import { PassworResetForm } from "../PasswordResetForm/PasswordResetForm";
-import { SignInForm } from "../SignInForm/SignInForm";
+import {
+  PasswordResetHandle,
+  PassworResetForm,
+} from "../PasswordResetForm/PasswordResetForm";
+import { SignInForm, SignInFormHandle } from "../SignInForm/SignInForm";
 import { SignUpForm, SignUpFormHandle } from "../SignUpForm/SignUpForm";
 
 interface AuthDrawerProps {
@@ -31,13 +34,21 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
     setHeading(defaultHeadings[view]);
   }, [view]);
 
-  const signupRef = useRef<SignUpFormHandle>(null);
+  const signUpRef = useRef<SignUpFormHandle>(null);
+  const signInRef = useRef<SignInFormHandle>(null);
+  const passwordResetRef = useRef<PasswordResetHandle>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      signUpRef.current?.resetForm();
+      signInRef.current?.resetForm();
+      passwordResetRef.current?.resetForm();
+      setView("login");
+    }
+  }, [isOpen]);
 
   const onClose = () => {
     setIsOpen(false);
-    if (view === "signup") {
-      signupRef.current?.resetForm();
-    }
     setView("login");
   };
 

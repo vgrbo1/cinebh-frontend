@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { StepEmail } from "./StepEmail";
 import { StepNewPassword } from "./StepNewPassword";
 import { StepSuccess } from "./StepSuccess";
@@ -7,13 +7,21 @@ interface PasswordResetFormProps {
   setHeading: (heading: string) => void;
 }
 
-export function PassworResetForm({ setHeading }: PasswordResetFormProps) {
+export type PasswordResetHandle = {
+  resetForm: () => void;
+};
+
+export const PassworResetForm = forwardRef<
+  PasswordResetHandle,
+  PasswordResetFormProps
+>(({ setHeading }, ref) => {
   const [step, setStep] = useState<number>(1);
-  const [email, setEmail] = useState<string>("johndoe@example.com");
+  const [email, setEmail] = useState<string>("email@example.com");
   const [code, setCode] = useState<string>("");
   const [verificationCodeError, setVerificationCodeError] = useState<
     string | null
   >(null);
+
   useEffect(() => {
     if (step === 4) {
       setHeading("Password Reset Successful! 🎉");
@@ -21,6 +29,15 @@ export function PassworResetForm({ setHeading }: PasswordResetFormProps) {
       setHeading("Reset Password");
     }
   }, [step, setHeading]);
+
+  useImperativeHandle(ref, () => ({
+    resetForm: () => {
+      setStep(1);
+      setEmail("email@example.com");
+      setCode("");
+      setVerificationCodeError(null);
+    },
+  }));
 
   return (
     <div className="w-full max-w-[400px]">
@@ -44,4 +61,4 @@ export function PassworResetForm({ setHeading }: PasswordResetFormProps) {
       {step === 4 && <StepSuccess setStep={setStep} />}
     </div>
   );
-}
+});
