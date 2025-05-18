@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
+import { ERROR_CODES } from "../../constants/errorCodes";
 import { sendResetEmail } from "../../services/authService";
 import {
   StepEmailData,
@@ -24,6 +25,7 @@ export function StepEmail({ setStep, setEmail }: StepEmailProps) {
     watch,
     reset,
     formState: { errors },
+    setError,
   } = useForm<StepEmailData>({
     resolver: zodResolver(stepEmailSchema),
   });
@@ -35,6 +37,14 @@ export function StepEmail({ setStep, setEmail }: StepEmailProps) {
       setEmail(email);
       reset();
       setStep(2);
+    },
+    onError: (error: any) => {
+      if (error.response?.data?.code === ERROR_CODES.RESEND_LIMIT) {
+        setError("email", {
+          type: "server",
+          message: error.response.data.message,
+        });
+      }
     },
   });
 
