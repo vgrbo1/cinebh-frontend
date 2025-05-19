@@ -98,6 +98,15 @@ export const SignInForm = forwardRef<SignInFormHandle, SignInFormProps>(
       signInMutation.mutate(data);
     };
 
+    useEffect(() => {
+      if (loginSuccess) {
+        const timer = setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
+        return () => clearTimeout(timer);
+      }
+    }, [loginSuccess]);
+
     return (
       <div className="w-full max-w-[400px]">
         {loginSuccess ? (
