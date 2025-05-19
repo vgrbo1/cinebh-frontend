@@ -4,6 +4,7 @@ import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/Logo.png";
 import { AuthView } from "../Layout/Layout";
+import { PassworResetForm } from "../PasswordResetForm/PasswordResetForm";
 import { SignUpForm, SignUpFormHandle } from "../SignUpForm/SignUpForm";
 
 interface AuthDrawerProps {
@@ -76,6 +77,7 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
             closeDrawer={onClose}
           />
         )}
+        {view === "reset" && <PassworResetForm setHeading={setHeading} />}
       </div>
     </div>
   );
