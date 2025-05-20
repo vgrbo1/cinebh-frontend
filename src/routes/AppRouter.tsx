@@ -4,6 +4,7 @@ import { About } from "../pages/About";
 import { CurrentlyShowing } from "../pages/CurrentlyShowing";
 import { Home } from "../pages/Home";
 import { MePage } from "../pages/MePage";
+import { MovieDetails } from "../pages/MovieDetails";
 import { Pricing } from "../pages/Pricing";
 import { UnauthorizedPage } from "../pages/UnauthorizedPage";
 import { UpcomingMovies } from "../pages/UpcomingMovies";
@@ -27,6 +28,7 @@ function AppRouter() {
           </ProtectedRoute>
         }
       />
+      <Route path="/movies" element={<MovieDetails />} />
     </Routes>
   );
 }
