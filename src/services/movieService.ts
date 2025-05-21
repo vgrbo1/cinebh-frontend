@@ -125,11 +125,6 @@ export const getMovieProjections = async (
   venueIds?: number[]
 ): Promise<MovieProjection[]> => {
   try {
-    const now = new Date();
-    const time = `${now.getHours().toString().padStart(2, "0")}:${now
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`;
     const response = await axiosInstance.get<MovieProjection[]>(
       `/api/public/movies/${movieId}/projections`,
       {
@@ -137,7 +132,6 @@ export const getMovieProjections = async (
           date,
           locationIds,
           venueIds,
-          time,
         },
         paramsSerializer: { indexes: null },
       }
