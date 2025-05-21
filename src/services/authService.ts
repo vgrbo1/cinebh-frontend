@@ -1,3 +1,4 @@
+import { User } from "../types/model/User";
 import { SignUpFormData } from "../validation/signUpSchema";
 import axiosInstance from "./axiosInstance";
 
@@ -34,5 +35,23 @@ export const changePassword = async (newPassword: string, code: string) => {
       code,
     }
   );
+  return response.data;
+};
+
+export const signIn = async (
+  email: string,
+  password: string,
+  isRememberMe: boolean
+) => {
+  const response = await axiosInstance.post<User>("/api/public/auth/login", {
+    email,
+    password,
+    isRememberMe,
+  });
+  return response.data;
+};
+
+export const logoutUser = async () => {
+  const response = await axiosInstance.post("/api/public/auth/logout");
   return response.data;
 };
