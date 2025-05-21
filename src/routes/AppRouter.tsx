@@ -28,7 +28,7 @@ function AppRouter() {
           </ProtectedRoute>
         }
       />
-      <Route path="/movies" element={<MovieDetails />} />
+      <Route path="/movies/:movieId" element={<MovieDetails />} />
     </Routes>
   );
 }
