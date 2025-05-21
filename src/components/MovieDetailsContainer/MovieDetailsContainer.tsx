@@ -99,7 +99,7 @@ export const MovieDetailsContainer: React.FC<MovieDetailsContainerProps> = ({
             />
             <div className="flex flex-col ml-2">
               <p className="text-customDarkBlue text-sm">
-                {movie.imdbRating ? `${movie.imdbRating}%` : "N/A"}
+                {movie.imdbRating ? `${movie.imdbRating}` : "N/A"}
               </p>
               <p className="text-customDarkGray text-xs">IMDB rating</p>
             </div>
