@@ -5,12 +5,11 @@ import {
   faLocationPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useRef, useState } from "react";
-import { getFormOptions } from "../../services/filterService";
-import { getMovieProjections } from "../../services/movieService";
-import { FilterOptionsResponse } from "../../types/model/FilterOptionsResponse";
+import { useFilterOptions } from "../../hooks/useFilterOptions";
+import { useMovieProjections } from "../../hooks/useMovieProjections";
+import { MovieProjection } from "../../types/model/MovieProjection";
 import { generateNextTenDates, toTimeString } from "../../util/dateUtils";
 import { MultiSelect } from "../MultiSelect/MultiSelect";
 
@@ -37,27 +36,14 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
   };
 
   const { data: filterOptions, status: filterOptionsStatus } =
-    useQuery<FilterOptionsResponse>({
-      queryKey: ["filter-options"],
-      queryFn: () => getFormOptions(),
-      placeholderData: keepPreviousData,
-    });
+    useFilterOptions();
 
-  const { data: projections, status: projectionsStatus } = useQuery({
-    queryKey: [
-      "projections",
-      selectedDate,
-      selectedLocationIds,
-      selectedVenueIds,
-    ],
-    queryFn: () =>
-      getMovieProjections(
-        movieId,
-        selectedDate,
-        selectedLocationIds,
-        selectedVenueIds
-      ),
-  });
+  const { data: projections, status: projectionsStatus } = useMovieProjections(
+    movieId,
+    selectedDate,
+    selectedLocationIds,
+    selectedVenueIds
+  );
 
   if (filterOptionsStatus === "pending" || projectionsStatus === "pending") {
     return <div className="text-center py-6">Loading...</div>;
@@ -89,19 +75,6 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
     const ids = venues.filter((v) => names.includes(v.name)).map((v) => v.id);
     setSelectedVenueIds(ids);
   };
-  const groupedProjections = new Map<
-    string,
-    { label: string; items: typeof projections }
-  >();
-
-  projections.forEach((proj) => {
-    const key = `${proj.cinemaName}|${proj.hallName}`;
-    const label = `${proj.cinemaName} (${proj.hallName})`;
-    if (!groupedProjections.has(key)) {
-      groupedProjections.set(key, { label, items: [] });
-    }
-    groupedProjections.get(key)!.items.push(proj);
-  });
 
   return (
     <div className="h-10/12 rounded-2xl shadow-md p-6 bg-white space-y-6 font-primary shadow-light-400">
@@ -169,34 +142,32 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
                 No projections available for the selected date and filters.
               </div>
             ) : (
-              <div className="max-h-96 overflow-y-auto space-y-6 pr-2">
-                {Array.from(groupedProjections.values()).map((group, i) => (
-                  <div key={group.label} className="space-y-2">
-                    <p className="text-primary font-semibold text-lg">
-                      {group.label}
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      {group.items.map((projection) => (
-                        <button
-                          key={projection.id}
-                          onClick={() => setSelectedProjectionId(projection.id)}
-                          className={clsx(
-                            "px-3 py-2 rounded-lg text-base font-semibold border shadow-light-50 transition-colors cursor-pointer",
-                            {
-                              "bg-secondary text-white border-secondary":
-                                projection.id === selectedProjectionId,
-                              "bg-white text-primary border-customGray":
-                                projection.id !== selectedProjectionId,
-                            }
-                          )}
-                        >
-                          {toTimeString(projection.startTime)}
-                        </button>
-                      ))}
-                    </div>
+              projections.map((group) => (
+                <div key={group.label} className="space-y-2">
+                  <p className="text-primary font-semibold text-lg">
+                    {group.label}
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {group.items.map((projection: MovieProjection) => (
+                      <button
+                        key={projection.id}
+                        onClick={() => setSelectedProjectionId(projection.id)}
+                        className={clsx(
+                          "px-3 py-2 rounded-lg text-base font-semibold border shadow-light-50 transition-colors cursor-pointer",
+                          {
+                            "bg-secondary text-white border-secondary":
+                              projection.id === selectedProjectionId,
+                            "bg-white text-primary border-customGray":
+                              projection.id !== selectedProjectionId,
+                          }
+                        )}
+                      >
+                        {toTimeString(projection.startTime)}
+                      </button>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))
             )}
           </div>
         </div>
