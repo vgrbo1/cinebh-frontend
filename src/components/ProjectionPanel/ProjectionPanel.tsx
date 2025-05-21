@@ -1,0 +1,206 @@
+import {
+  faArrowLeft,
+  faArrowRight,
+  faBuilding,
+  faLocationPin,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import clsx from "clsx";
+import { useRef, useState } from "react";
+import { getFormOptions } from "../../services/filterService";
+import { getMovieProjections } from "../../services/movieService";
+import { FilterOptionsResponse } from "../../types/model/FilterOptionsResponse";
+import { generateDates, toTimeString } from "../../util/dateUtils";
+import { MultiSelect } from "../MultiSelect/MultiSelect";
+
+export function ProjectionPanel({ movieId }: { movieId: string }) {
+  const [selectedDate, setSelectedDate] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  );
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [selectedVenues, setSelectedVenues] = useState<string[]>([]);
+  const [selectedVenueIds, setSelectedVenueIds] = useState<number[]>([]);
+  const [selectedLocationIds, setSelectedLocationIds] = useState<number[]>([]);
+  const [selectedProjectionId, setSelectedProjectionId] = useState<
+    number | null
+  >(null);
+  const dateScrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (dateScrollRef.current) {
+      dateScrollRef.current.scrollBy({
+        left: direction === "left" ? -120 : 120,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const { data: filterOptions, status: filterOptionsStatus } =
+    useQuery<FilterOptionsResponse>({
+      queryKey: ["filter-options"],
+      queryFn: () => getFormOptions(),
+      placeholderData: keepPreviousData,
+    });
+
+  const { data: projections, status: projectionsStatus } = useQuery({
+    queryKey: [
+      "projections",
+      selectedDate,
+      selectedLocationIds,
+      selectedVenueIds,
+    ],
+    queryFn: () =>
+      getMovieProjections(
+        movieId,
+        selectedDate,
+        selectedLocationIds,
+        selectedVenueIds
+      ),
+  });
+
+  if (filterOptionsStatus === "pending" || projectionsStatus === "pending") {
+    return <div className="text-center py-6">Loading...</div>;
+  }
+
+  if (filterOptionsStatus === "error" || projectionsStatus === "error") {
+    return (
+      <div className="text-center py-6 text-customLightRed">
+        Something went wrong. Please try again.
+      </div>
+    );
+  }
+
+  const locations = filterOptions.locations;
+  const venues = filterOptions.venues;
+
+  const dates = generateDates();
+
+  const handleLocationChange = (names: string[]) => {
+    setSelectedLocations(names);
+    const ids = locations
+      .filter((l) => names.includes(l.cityName))
+      .map((l) => l.id);
+    setSelectedLocationIds(ids);
+  };
+
+  const handleVenueChange = (names: string[]) => {
+    setSelectedVenues(names);
+    const ids = venues.filter((v) => names.includes(v.name)).map((v) => v.id);
+    setSelectedVenueIds(ids);
+  };
+  const groupedProjections = new Map<
+    string,
+    { label: string; items: typeof projections }
+  >();
+
+  projections.forEach((proj) => {
+    const key = `${proj.cinemaName}|${proj.hallName}`;
+    const label = `${proj.cinemaName} (${proj.hallName})`;
+    if (!groupedProjections.has(key)) {
+      groupedProjections.set(key, { label, items: [] });
+    }
+    groupedProjections.get(key)!.items.push(proj);
+  });
+
+  return (
+    <div className="h-10/12 rounded-2xl shadow-md p-6 bg-white space-y-6 font-primary shadow-light-400">
+      <div className="flex flex-wrap gap-4 w-full">
+        <MultiSelect
+          icon={<FontAwesomeIcon icon={faLocationPin} />}
+          options={locations.map((l) => l.cityName)}
+          selected={selectedLocations}
+          onChange={handleLocationChange}
+          placeholder="All Cities"
+        />
+
+        <MultiSelect
+          icon={<FontAwesomeIcon icon={faBuilding} />}
+          options={venues.map((v) => v.name)}
+          selected={selectedVenues}
+          onChange={handleVenueChange}
+          placeholder="All Cinemas"
+        />
+      </div>
+      <div className="space-y-6">
+        <div>
+          <div
+            ref={dateScrollRef}
+            className="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth"
+          >
+            {dates.map((date) => (
+              <button
+                key={date.full}
+                onClick={() => setSelectedDate(date.full)}
+                className={`flex flex-col items-center px-4 py-2 rounded-lg w-[78px] h-[72px] whitespace-nowrap transition cursor-pointer ${
+                  selectedDate === date.full
+                    ? "bg-secondary text-white"
+                    : "border border-customGray bg-white text-primary"
+                }`}
+              >
+                <span className="font-bold text-xl">{date.day}</span>
+                <span className="text-base">{date.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-end gap-2">
+          <button
+            type="button"
+            onClick={() => scroll("left")}
+            className="p-3 w-12 h-12 flex items-center justify-center rounded-lg border border-customGray bg-white hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+          <button
+            type="button"
+            onClick={() => scroll("right")}
+            className="p-3 w-12 h-12 flex items-center justify-center rounded-lg border border-customGray bg-white hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+          >
+            <FontAwesomeIcon icon={faArrowRight} />
+          </button>
+        </div>
+        <div className="flex flex-col space-y-6">
+          <h3 className="text-xl font-bold text-primary">Showtimes</h3>
+
+          <div className="flex flex-wrap gap-3">
+            {projections.length === 0 ? (
+              <div className="text-center py-6 text-customDarkGray w-full">
+                No projections available for the selected date and filters.
+              </div>
+            ) : (
+              <div className="max-h-96 overflow-y-auto space-y-6 pr-2">
+                {Array.from(groupedProjections.values()).map((group, i) => (
+                  <div key={group.label} className="space-y-2">
+                    <p className="text-primary font-semibold text-lg">
+                      {group.label}
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      {group.items.map((projection) => (
+                        <button
+                          key={projection.id}
+                          onClick={() => setSelectedProjectionId(projection.id)}
+                          className={clsx(
+                            "px-3 py-2 rounded-lg text-base font-semibold border shadow-light-50 transition-colors cursor-pointer",
+                            {
+                              "bg-secondary text-white border-secondary":
+                                projection.id === selectedProjectionId,
+                              "bg-white text-primary border-customGray":
+                                projection.id !== selectedProjectionId,
+                            }
+                          )}
+                        >
+                          {toTimeString(projection.startTime)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
