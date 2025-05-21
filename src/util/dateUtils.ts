@@ -1,4 +1,4 @@
-export function generateDates() {
+export function generateNextTenDates() {
   return Array.from({ length: 10 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);

@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 import { getFormOptions } from "../../services/filterService";
 import { getMovieProjections } from "../../services/movieService";
 import { FilterOptionsResponse } from "../../types/model/FilterOptionsResponse";
-import { generateDates, toTimeString } from "../../util/dateUtils";
+import { generateNextTenDates, toTimeString } from "../../util/dateUtils";
 import { MultiSelect } from "../MultiSelect/MultiSelect";
 
 export function ProjectionPanel({ movieId }: { movieId: string }) {
@@ -74,7 +74,7 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
   const locations = filterOptions.locations;
   const venues = filterOptions.venues;
 
-  const dates = generateDates();
+  const dates = generateNextTenDates();
 
   const handleLocationChange = (names: string[]) => {
     setSelectedLocations(names);
