@@ -68,9 +68,9 @@ export const MovieDetails: React.FC = () => {
           <div className="w-full lg:w-1/2">
             <MovieDetailsContainer movie={movie} />
           </div>
-          <div className="w-full lg:w-1/2 pl-2">
+          <div className="w-full lg:w-1/2  pl-2">
             {isUpcoming ? (
-              <div className="h-10/12 rounded-2xl shadow-md p-6 bg-white space-y-6 font-primary shadow-light-400">
+              <div className="h-[528px] rounded-2xl shadow-md p-6 bg-white space-y-6 font-primary shadow-light-400">
                 <h3 className="text-primary text-2xl text-center font-bold">
                   {movie.title} is coming on{" "}
                   {projectionStartDate.toLocaleDateString()}!

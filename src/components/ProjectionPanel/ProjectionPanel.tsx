@@ -77,25 +77,25 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
   };
 
   return (
-    <div className="h-10/12 rounded-2xl shadow-md p-6 bg-white space-y-6 font-primary shadow-light-400">
-      <div className="flex flex-wrap gap-4 w-full">
-        <MultiSelect
-          icon={<FontAwesomeIcon icon={faLocationPin} />}
-          options={locations.map((l) => l.cityName)}
-          selected={selectedLocations}
-          onChange={handleLocationChange}
-          placeholder="All Cities"
-        />
-
-        <MultiSelect
-          icon={<FontAwesomeIcon icon={faBuilding} />}
-          options={venues.map((v) => v.name)}
-          selected={selectedVenues}
-          onChange={handleVenueChange}
-          placeholder="All Cinemas"
-        />
-      </div>
+    <div className="h-[528px] rounded-2xl shadow-md p-6 bg-white font-primary shadow-light-400 flex flex-col">
       <div className="space-y-6">
+        <div className="flex flex-wrap gap-4 w-full">
+          <MultiSelect
+            icon={<FontAwesomeIcon icon={faLocationPin} />}
+            options={locations.map((l) => l.cityName)}
+            selected={selectedLocations}
+            onChange={handleLocationChange}
+            placeholder="All Cities"
+          />
+          <MultiSelect
+            icon={<FontAwesomeIcon icon={faBuilding} />}
+            options={venues.map((v) => v.name)}
+            selected={selectedVenues}
+            onChange={handleVenueChange}
+            placeholder="All Cinemas"
+          />
+        </div>
+
         <div>
           <div
             ref={dateScrollRef}
@@ -117,6 +117,7 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
             ))}
           </div>
         </div>
+
         <div className="flex justify-end gap-2">
           <button
             type="button"
@@ -133,44 +134,49 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
             <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
-        <div className="flex flex-col space-y-6">
-          <h3 className="text-xl font-bold text-primary">Showtimes</h3>
+      </div>
 
-          <div className="flex flex-wrap gap-3">
-            {projections.length === 0 ? (
-              <div className="text-center py-6 text-customDarkGray w-full">
-                No projections available for the selected date and filters.
-              </div>
-            ) : (
-              projections.map((group) => (
-                <div key={group.label} className="space-y-2">
-                  <p className="text-primary font-semibold text-lg">
-                    {group.label}
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {group.items.map((projection: MovieProjection) => (
-                      <button
-                        key={projection.id}
-                        onClick={() => setSelectedProjectionId(projection.id)}
-                        className={clsx(
-                          "px-3 py-2 rounded-lg text-base font-semibold border shadow-light-50 transition-colors cursor-pointer",
-                          {
-                            "bg-secondary text-white border-secondary":
-                              projection.id === selectedProjectionId,
-                            "bg-white text-primary border-customGray":
-                              projection.id !== selectedProjectionId,
-                          }
-                        )}
-                      >
-                        {toTimeString(projection.startTime)}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))
-            )}
+      <div className="flex-1 overflow-y-scroll mt-6 pr-2 space-y-6">
+        <h3 className="text-xl font-bold text-primary">Showtimes</h3>
+
+        {projections.length === 0 ? (
+          <div className="text-center py-6 text-customDarkGray w-full">
+            No projections available for the selected date and filters.
           </div>
-        </div>
+        ) : (
+          projections.map((group) => (
+            <div key={group.label} className="space-y-2">
+              <p className="text-primary font-semibold text-lg">
+                {group.label}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {group.items.map((projection: MovieProjection) => (
+                  <button
+                    key={projection.id}
+                    onClick={() => {
+                      if (projection.id !== selectedProjectionId) {
+                        setSelectedProjectionId(projection.id);
+                      } else {
+                        setSelectedProjectionId(null);
+                      }
+                    }}
+                    className={clsx(
+                      "px-3 py-2 rounded-lg text-base font-semibold border shadow-light-50 transition-colors cursor-pointer",
+                      {
+                        "bg-secondary text-white border-secondary":
+                          projection.id === selectedProjectionId,
+                        "bg-white text-primary border-customGray":
+                          projection.id !== selectedProjectionId,
+                      }
+                    )}
+                  >
+                    {toTimeString(projection.startTime)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
