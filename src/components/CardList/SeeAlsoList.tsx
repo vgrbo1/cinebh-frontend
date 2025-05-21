@@ -33,6 +33,7 @@ export function SeeAlsoList() {
       renderItem={(movie) => (
         <SmallMovieCard
           key={movie.id}
+          id={movie.id}
           imageUrl={movie.posterUrl}
           title={movie.title}
         />
