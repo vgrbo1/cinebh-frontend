@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import { useAuthStore } from "../../store/useAuthStore";
 import { Button } from "../Button/Button";
 
