@@ -23,15 +23,17 @@ export function UpcomingMovieList() {
   }
 
   return (
-    <CardList
-      title="Upcoming Movies"
-      seeAllUrl="/upcoming-movies"
-      items={data.content}
-      total={data.totalElements}
-      page={page}
-      pageSize={PAGE_SIZE}
-      onPageChange={setPage}
-      renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
-    />
+    <div className="px-24">
+      <CardList
+        title="Upcoming Movies"
+        seeAllUrl="/upcoming-movies"
+        items={data.content}
+        total={data.totalElements}
+        page={page}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+        renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
+      />
+    </div>
   );
 }

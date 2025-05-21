@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import React from "react";
 import { useParams } from "react-router";
-import { ProjectionPanel } from "../components/ProjectionPanel/ProjectionPanel";
 import { SeeAlsoList } from "../components/CardList/SeeAlsoList";
 import { Layout } from "../components/Layout/Layout";
 import { MovieDetailsContainer } from "../components/MovieDetailsContainer/MovieDetailsContainer";
+import { ProjectionPanel } from "../components/ProjectionPanel/ProjectionPanel";
 import { getMovieDetails } from "../services/movieService";
 
 export const MovieDetails: React.FC = () => {
@@ -36,7 +36,7 @@ export const MovieDetails: React.FC = () => {
 
   return (
     <Layout>
-      <div className="py-6 font-primary">
+      <div className="px-24 py-6 font-primary">
         <h2 className="text-2xl font-bold mb-6 text-primary">Movie Details</h2>
 
         <div className="flex flex-col lg:flex-row gap-6 w-full">
