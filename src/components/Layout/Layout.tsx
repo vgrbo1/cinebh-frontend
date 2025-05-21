@@ -1,12 +1,26 @@
+import { useState } from "react";
+import { AuthDrawer } from "../AuthDrawer/AuthDrawer";
 import { Footer } from "../Footer/Footer";
 import { Navbar } from "../Navbar/Navbar";
 
+export type AuthView = "login" | "signup" | "reset";
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [authView, setAuthView] = useState<AuthView>("login");
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
+    <div className="relative flex flex-col min-h-screen">
+      <Navbar onToggleLogin={() => setDrawerOpen((prev) => !prev)} />
       <main className="flex-1">{children}</main>
       <Footer />
+
+      <AuthDrawer
+        isOpen={drawerOpen}
+        setIsOpen={setDrawerOpen}
+        view={authView}
+        setView={setAuthView}
+      />
     </div>
   );
 }

@@ -1,7 +1,22 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import logo from "../../assets/Logo.png";
+import { useAuthStore } from "../../store/useAuthStore";
+import { Button } from "../Button/Button";
 
-export function Navbar() {
+type NavbarProps = {
+  onToggleLogin: () => void;
+};
+
+export function Navbar({ onToggleLogin }: NavbarProps) {
+  const { user, logout } = useAuthStore();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    setShowDropdown(false);
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-primary font-primary text-white text-base">
       <div className="px-24 py-4 flex items-center justify-between">
@@ -15,13 +30,31 @@ export function Navbar() {
           <Link to={"/upcoming-movies"} className="hover:underline">
             Upcoming Movies
           </Link>
-          {/* <Link to={"/"} className="hover:underline">
-            Venues
-          </Link> */}
         </div>
-        {/* <button className="bg-primary h-12 text-white rounded-lg border font-semibold border-white px-5 py-3">
-          Sign In
-        </button> */}
+        {user ? (
+          <div className="relative">
+            <Button
+              variant="primary"
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
+              {user?.email.split("@")[0]}
+            </Button>
+            {showDropdown && (
+              <div className="absolute bg-primary right-0 mt-2 w-48 py-2 rounded-md shadow-lg z-50">
+                <button
+                  className="w-full text-left px-4 py-2 text-white  hover:bg-customDarkCyanBlue cursor-pointer transition duration-150"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Button variant="primary" onClick={onToggleLogin}>
+            Sign In
+          </Button>
+        )}
       </div>
     </nav>
   );
