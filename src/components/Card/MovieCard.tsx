@@ -1,7 +1,7 @@
 import { Movie } from "../../types/model/Movie";
 import { Card } from "./Card";
 
-export function MovieCard({ title, posterUrl, genres, duration }: Movie) {
+export function MovieCard({ id, title, posterUrl, genres, duration }: Movie) {
   return (
     <Card
       imageUrl={posterUrl}
@@ -9,6 +9,7 @@ export function MovieCard({ title, posterUrl, genres, duration }: Movie) {
       secondaryText={`${duration} min | ${genres
         .map((genre) => genre.name)
         .join(", ")}`}
+      navigateTo={`/movies/${id}`}
     />
   );
 }

@@ -1,12 +1,12 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getUpcomingMovies } from "../../services/movieService";
-import { MovieCard } from "../Card/MovieCard";
+import { SmallMovieCard } from "../Card/SmallMovieCard";
 import { CardList } from "./CardList";
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 6;
 
-export function UpcomingMovieList() {
+export function SeeAlsoList() {
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["movies", "upcoming", page],
@@ -23,17 +23,22 @@ export function UpcomingMovieList() {
   }
 
   return (
-    <div className="px-24">
-      <CardList
-        title="Upcoming Movies"
-        seeAllUrl="/upcoming-movies"
-        items={data.content}
-        total={data.totalElements}
-        page={page}
-        pageSize={PAGE_SIZE}
-        onPageChange={setPage}
-        renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
-      />
-    </div>
+    <CardList
+      title="See Also"
+      items={data.content}
+      total={data.totalElements}
+      page={page}
+      pageSize={PAGE_SIZE}
+      onPageChange={setPage}
+      renderItem={(movie) => (
+        <SmallMovieCard
+          key={movie.id}
+          id={movie.id}
+          imageUrl={movie.posterUrl}
+          title={movie.title}
+        />
+      )}
+      maxColumns={6}
+    />
   );
 }

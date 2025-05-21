@@ -78,7 +78,7 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
             />
           </button>
 
-          <h2 className="text-2xl font-bold text-customGray2 text-center">
+          <h2 className="text-xl font-bold text-customGray2 text-center">
             {heading}
           </h2>
         </div>
@@ -91,7 +91,11 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
           />
         )}
         {view === "reset" && (
-          <PassworResetForm setHeading={setHeading} ref={passwordResetRef} />
+          <PassworResetForm
+            setHeading={setHeading}
+            setView={setView}
+            ref={passwordResetRef}
+          />
         )}
         {view === "login" && (
           <SignInForm
