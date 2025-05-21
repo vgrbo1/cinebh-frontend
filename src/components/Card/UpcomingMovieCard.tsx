@@ -22,6 +22,7 @@ function formatStartDate(startDate: Date): string {
 }
 
 export function UpcomingMovieCard({
+  id,
   title,
   posterUrl,
   genres,
@@ -42,6 +43,7 @@ export function UpcomingMovieCard({
           projectionStartsAt[2]
         )
       )}
+      navigateTo={`/movies/${id}`}
     />
   );
 }
