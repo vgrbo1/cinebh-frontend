@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 import { Link } from "react-router";
 import { Pagination } from "../Pagination/Pagination";
@@ -11,6 +12,7 @@ export interface CardListProps<T> {
   pageSize: number;
   onPageChange: (newPage: number) => void;
   renderItem: (item: T) => React.ReactNode;
+  maxColumns?: 4 | 6;
 }
 
 export function CardList<T>({
@@ -22,9 +24,21 @@ export function CardList<T>({
   pageSize,
   onPageChange,
   renderItem,
+  maxColumns = 4,
 }: CardListProps<T>) {
+  const gridCols = clsx(
+    "grid",
+    "grid-cols-1",
+    "sm:grid-cols-2",
+    "md:grid-cols-3",
+    {
+      "lg:grid-cols-4": maxColumns === 4,
+      "lg:grid-cols-6": maxColumns === 6,
+    }
+  );
+
   return (
-    <div className="space-y-4 px-24 my-6 font-primary">
+    <div className="space-y-4 my-6 font-primary">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl text-primary font-bold">{title}</h2>
         {seeAllUrl && (
@@ -36,9 +50,7 @@ export function CardList<T>({
           </Link>
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
-        {items.map(renderItem)}
-      </div>
+      <div className={clsx(gridCols, "gap-2.5")}>{items.map(renderItem)}</div>
 
       <Pagination
         total={total}

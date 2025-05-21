@@ -23,14 +23,16 @@ export function VenueList() {
   }
 
   return (
-    <CardList
-      title="Venues"
-      items={data.content}
-      total={data.totalElements}
-      page={page}
-      pageSize={PAGE_SIZE}
-      onPageChange={setPage}
-      renderItem={(venue) => <VenueCard key={venue.id} {...venue} />}
-    />
+    <div className="px-24">
+      <CardList
+        title="Venues"
+        items={data.content}
+        total={data.totalElements}
+        page={page}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+        renderItem={(venue) => <VenueCard key={venue.id} {...venue} />}
+      />
+    </div>
   );
 }

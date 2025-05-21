@@ -23,15 +23,17 @@ export function CurrentMovieList() {
   }
 
   return (
-    <CardList
-      title="Currently Showing"
-      seeAllUrl="/currently-showing"
-      items={data.content}
-      total={data.totalElements}
-      page={page}
-      pageSize={PAGE_SIZE}
-      onPageChange={setPage}
-      renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
-    />
+    <div className="px-24">
+      <CardList
+        title="Currently Showing"
+        seeAllUrl="/currently-showing"
+        items={data.content}
+        total={data.totalElements}
+        page={page}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+        renderItem={(movie) => <MovieCard key={movie.id} {...movie} />}
+      />
+    </div>
   );
 }

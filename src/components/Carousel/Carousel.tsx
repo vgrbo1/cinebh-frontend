@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { getMovieCarousels } from "../../services/movieService";
 
 export function Carousel() {
@@ -45,7 +46,7 @@ export function Carousel() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
-          <div className="absolute top-1/2 left-24  max-w-lg space-y-2">
+          <div className="absolute top-5/12 left-24  max-w-lg space-y-2">
             <div className="flex space-x-2">
               {movie.genres.map((genre) => (
                 <span
@@ -57,16 +58,16 @@ export function Carousel() {
               ))}
             </div>
             <h2 className="text-white text-5xl font-bold">{movie.title}</h2>
-            <p className="text-white text-xl sm:text-base font-bold line-clamp-3">
+            <p className="text-white text-xl sm:text-base font-bold line-clamp-3 mb-6">
               {movie.synopsis}
             </p>
 
-            {/* <button
-              className="w-fit rounded-lg px-5 py-3 font-semibold mt-4 transition-colors duration-200 
-            bg-secondary text-white hover:bg-secondary/90 border-secondary "
+            <Link
+              to={`/movies/${movie.id}`}
+              className="w-fit rounded-lg px-5 py-3 font-semibold  transition-colors duration-200 bg-secondary text-white hover:bg-secondary/90 border-secondary "
             >
               Buy Ticket
-            </button> */}
+            </Link>
           </div>
         </div>
       ))}

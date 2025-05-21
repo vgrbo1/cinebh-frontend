@@ -1,18 +1,13 @@
-import {
-  keepPreviousData,
-  useInfiniteQuery,
-  useQuery,
-} from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { UpcomingMovieCard } from "../components/Card/UpcomingMovieCard";
 import { Layout } from "../components/Layout/Layout";
 import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
-import { getFormOptions } from "../services/filterService";
+import { useFilterOptions } from "../hooks/useFilterOptions";
 import { getUpcomingMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
-import { FilterOptionsResponse } from "../types/model/FilterOptionsResponse";
 import { Movie } from "../types/model/Movie";
 
 const PAGE_SIZE = 12;
@@ -23,11 +18,7 @@ export function UpcomingMovies() {
   const [locationIds, setLocationIds] = useState<number[]>([]);
   const [venueIds, setVenueIds] = useState<number[]>([]);
 
-  const { data: filterOptions } = useQuery<FilterOptionsResponse>({
-    queryKey: ["filter-options"],
-    queryFn: () => getFormOptions(),
-    placeholderData: keepPreviousData,
-  });
+  const { data: filterOptions } = useFilterOptions();
 
   const { data, error, fetchNextPage, hasNextPage, isLoading } =
     useInfiniteQuery({

@@ -5,6 +5,7 @@ import { StepSuccess } from "./StepSuccess";
 import { StepVerificationCode } from "./StepVerificationCode";
 interface PasswordResetFormProps {
   setHeading: (heading: string) => void;
+  setView: (view: "login" | "signup" | "reset") => void;
 }
 
 export type PasswordResetHandle = {
@@ -14,7 +15,7 @@ export type PasswordResetHandle = {
 export const PassworResetForm = forwardRef<
   PasswordResetHandle,
   PasswordResetFormProps
->(({ setHeading }, ref) => {
+>(({ setHeading, setView }, ref) => {
   const [step, setStep] = useState<number>(1);
   const [email, setEmail] = useState<string>("email@example.com");
   const [code, setCode] = useState<string>("");
@@ -58,7 +59,7 @@ export const PassworResetForm = forwardRef<
           setVerificationCodeError={setVerificationCodeError}
         />
       )}
-      {step === 4 && <StepSuccess setStep={setStep} />}
+      {step === 4 && <StepSuccess setStep={setStep} setView={setView} />}
     </div>
   );
 });

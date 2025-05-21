@@ -1,13 +1,25 @@
+import { Link } from "react-router";
+
 export interface CardProps {
   imageUrl: string;
   title: string;
   secondaryText: string;
   badgeText?: string;
+  navigateTo?: string;
 }
 
-export function Card({ imageUrl, title, secondaryText, badgeText }: CardProps) {
+export function Card({
+  imageUrl,
+  title,
+  secondaryText,
+  badgeText,
+  navigateTo,
+}: CardProps) {
   return (
-    <div className="relative rounded-3xl border border-customGray shadow-light-100 bg-white w-full p-4">
+    <Link
+      to={navigateTo || "#"}
+      className="relative rounded-3xl border border-customGray shadow-light-100 bg-white w-full p-4"
+    >
       {badgeText && (
         <div className="absolute top-6 right-2 bg-secondary text-white text-sm font-semibold px-2 py-1.5 rounded-lg h-8">
           {badgeText}
@@ -20,6 +32,6 @@ export function Card({ imageUrl, title, secondaryText, badgeText }: CardProps) {
       />
       <h3 className="text-xl text-primary font-semibold">{title}</h3>
       <p className="text-sm text-customDarkGray">{secondaryText}</p>
-    </div>
+    </Link>
   );
 }

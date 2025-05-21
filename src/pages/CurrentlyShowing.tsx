@@ -1,18 +1,13 @@
-import {
-  keepPreviousData,
-  useInfiniteQuery,
-  useQuery,
-} from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Layout } from "../components/Layout/Layout";
 import { MovieDetailCard } from "../components/MovieDetailCard/MovieDetailCard";
 import { NoMoviesCard } from "../components/NoMoviesCard/NoMoviesCard";
 import { SearchForm } from "../components/SearchForm/SearchForm";
-import { getFormOptions } from "../services/filterService";
+import { useFilterOptions } from "../hooks/useFilterOptions";
 import { getDetailedMovies } from "../services/movieService";
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
-import { FilterOptionsResponse } from "../types/model/FilterOptionsResponse";
 import { MovieWithProjections } from "../types/model/MovieWithProjections";
 
 const PAGE_SIZE = 10;
@@ -27,11 +22,7 @@ export function CurrentlyShowing() {
   const [fromTime, setFromTime] = useState<string | undefined>(undefined);
   const [toTime, setToTime] = useState<string | undefined>(undefined);
 
-  const { data: filterOptions } = useQuery<FilterOptionsResponse>({
-    queryKey: ["filter-options"],
-    queryFn: () => getFormOptions(),
-    placeholderData: keepPreviousData,
-  });
+  const { data: filterOptions } = useFilterOptions();
 
   const [debouncedTitle] = useDebounce(title, 500);
   const { data, error, fetchNextPage, hasNextPage, isLoading } =

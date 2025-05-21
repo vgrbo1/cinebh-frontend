@@ -1,6 +1,8 @@
 import { PaginatedResponse } from "../types/api/PaginatedResponse";
 import { Movie } from "../types/model/Movie";
 import { MovieCarousel } from "../types/model/MovieCarousel";
+import { MovieDetails } from "../types/model/MovieDetails";
+import { MovieProjection } from "../types/model/MovieProjection";
 import { MovieWithProjections } from "../types/model/MovieWithProjections";
 import axiosInstance from "./axiosInstance";
 
@@ -95,6 +97,45 @@ export const getDetailedMovies = async (
       },
       paramsSerializer: { indexes: null },
     });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching detailed current movies:", error);
+    throw error;
+  }
+};
+
+export const getMovieDetails = async (
+  movieId: string
+): Promise<MovieDetails> => {
+  try {
+    const response = await axiosInstance.get<MovieDetails>(
+      `/api/public/movies/${movieId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching detailed current movies:", error);
+    throw error;
+  }
+};
+
+export const getMovieProjections = async (
+  movieId: string,
+  date: string,
+  locationIds?: number[],
+  venueIds?: number[]
+): Promise<MovieProjection[]> => {
+  try {
+    const response = await axiosInstance.get<MovieProjection[]>(
+      `/api/public/movies/${movieId}/projections`,
+      {
+        params: {
+          date,
+          locationIds,
+          venueIds,
+        },
+        paramsSerializer: { indexes: null },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching detailed current movies:", error);
