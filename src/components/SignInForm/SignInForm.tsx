@@ -88,6 +88,10 @@ export const SignInForm = forwardRef<SignInFormHandle, SignInFormProps>(
             type: "server",
             message: "Email or Password that you've entered is incorrect.",
           });
+          setError("email", {
+            type: "server",
+            message: " ",
+          });
         } else {
           console.error("Unexpected error:", error);
         }

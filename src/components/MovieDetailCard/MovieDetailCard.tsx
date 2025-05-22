@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { MovieWithProjections } from "../../types/model/MovieWithProjections";
 
 export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
@@ -34,7 +35,11 @@ export function MovieDetailCard({ movie }: { movie: MovieWithProjections }) {
 
           <div className="flex flex-col justify-between h-full flex-grow">
             <div>
-              <h2 className="text-3xl font-bold text-primary">{movie.title}</h2>
+              <Link to={`/movies/${movie.id}`}>
+                <h2 className="text-3xl font-bold text-primary">
+                  {movie.title}
+                </h2>
+              </Link>
               <div className="text-primary text-sm mt-2">
                 <span className="mr-2">{movie.pgRating.replace("_", "-")}</span>
                 <span className="text-secondary text-lg">|</span>
