@@ -24,6 +24,7 @@ export function VenueButtonRow() {
       speed={30}
       pauseOnHover={true}
       className="font-bold text-2xl font-primary py-10"
+      autoFill={true}
     >
       {data.content.map((venue) => (
         <div key={venue.id} className="mx-5">
