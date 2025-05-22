@@ -39,7 +39,7 @@ export const MovieDetails: React.FC = () => {
       <div className="px-24 py-6 font-primary">
         <h2 className="text-2xl font-bold mb-6 text-primary">Movie Details</h2>
 
-        <div className="flex flex-col lg:flex-row gap-6 w-full">
+        <div className="flex flex-col h-[500px] lg:flex-row gap-6 w-full">
           <div className="w-1/2 overflow-hidden rounded-tl-2xl rounded-bl-2xl">
             <iframe
               className="w-full h-full rounded-tl-2xl rounded-bl-2xl"
