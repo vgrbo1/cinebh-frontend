@@ -61,7 +61,7 @@ export function StepVerificationCode({
       setVerificationCodeError(null);
       setCodeDigits(Array(6).fill(""));
       setCode("");
-      setResendTimeout(10);
+      setResendTimeout(300);
     },
     onError: (error: any) => {
       if (error.response?.data?.code === ERROR_CODES.RESEND_LIMIT) {
