@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getCurrentMovies } from "../../services/movieService";
 import { MovieCard } from "../Card/MovieCard";
+import { CardListSkeleton } from "../skeleton/CardListSkeleton/CardListSkeleton";
 import { CardList } from "./CardList";
 
 const PAGE_SIZE = 4;
@@ -15,7 +16,15 @@ export function CurrentMovieList() {
   });
 
   if (isLoading || !data) {
-    return <div>Loading current movies...</div>;
+    return (
+      <div className="px-24">
+        <CardListSkeleton
+          title="Currently Showing"
+          showSeeAll={true}
+          itemCount={PAGE_SIZE}
+        />
+      </div>
+    );
   }
 
   if (isError) {

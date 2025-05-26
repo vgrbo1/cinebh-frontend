@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getVenues } from "../../services/venueService";
 import { VenueCard } from "../Card/VenueCard";
+import { CardListSkeleton } from "../skeleton/CardListSkeleton/CardListSkeleton";
 import { CardList } from "./CardList";
 
 const PAGE_SIZE = 4;
@@ -15,7 +16,15 @@ export function VenueList() {
   });
 
   if (isLoading || !data) {
-    return <div>Loading venues...</div>;
+    return (
+      <div className="px-24">
+        <CardListSkeleton
+          title="Venues"
+          showSeeAll={false}
+          itemCount={PAGE_SIZE}
+        />
+      </div>
+    );
   }
 
   if (isError) {
