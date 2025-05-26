@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { getMovieCarousels } from "../../services/movieService";
+import { CarouselSkeleton } from "../skeleton/CarouselSkeleton/CarouselSkeleton";
 
 export function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,7 +23,7 @@ export function Carousel() {
   }, [data]);
 
   if (isLoading || !data) {
-    return <div>Loading carousel movies...</div>;
+    return <CarouselSkeleton />;
   }
 
   if (isError) {
