@@ -1,6 +1,8 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Marquee from "react-fast-marquee";
 import { getVenues } from "../../services/venueService";
+import { VenueButtonRowSkeleton } from "../skeleton/VenueButtonRowSkeleton/VenueButtonRowSkeleton";
+
 const PAGE = 1;
 const PAGE_SIZE = 6;
 
@@ -12,7 +14,7 @@ export function VenueButtonRow() {
   });
 
   if (isLoading || !data) {
-    return <div>Loading venues...</div>;
+    return <VenueButtonRowSkeleton />;
   }
 
   if (isError) {

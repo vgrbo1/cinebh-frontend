@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getUpcomingMovies } from "../../services/movieService";
 import { SmallMovieCard } from "../Card/SmallMovieCard";
+import { CardListSkeleton } from "../skeleton/CardListSkeleton/CardListSkeleton";
 import { CardList } from "./CardList";
 
 const PAGE_SIZE = 6;
@@ -15,7 +16,14 @@ export function SeeAlsoList() {
   });
 
   if (isLoading || !data) {
-    return <div>Loading current movies...</div>;
+    return (
+      <CardListSkeleton
+        title="See Also"
+        itemCount={6}
+        maxColumns={6}
+        variant="small"
+      />
+    );
   }
 
   if (isError) {
