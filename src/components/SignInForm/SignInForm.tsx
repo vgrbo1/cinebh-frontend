@@ -189,8 +189,13 @@ export const SignInForm = forwardRef<SignInFormHandle, SignInFormProps>(
               </button>
             </div>
 
-            <Button variant="secondary" type="submit" className="w-full mt-4">
-              Sign In
+            <Button
+              variant="secondary"
+              type="submit"
+              className="w-full mt-4"
+              disabled={signInMutation.isPending}
+            >
+              {signInMutation.isPending ? "Signing In..." : "Sign In"}
             </Button>
 
             <div className="text-center mt-6 text-base">
