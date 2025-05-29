@@ -179,8 +179,13 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
               error={errors.confirmPassword?.message}
               {...register("confirmPassword")}
             />
-            <Button variant="secondary" type="submit" className="w-full mt-4">
-              Sign Up
+            <Button
+              variant="secondary"
+              type="submit"
+              className="w-full mt-4"
+              disabled={signUpMutation.isPending}
+            >
+              {signUpMutation.isPending ? "Signing Up..." : "Sign Up"}
             </Button>
 
             <div className="text-center mt-6 text-base">
