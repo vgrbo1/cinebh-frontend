@@ -125,7 +125,7 @@ export function StepNewPassword({
           disabled={changePasswordMutation.isPending}
         >
           {changePasswordMutation.isPending
-            ? "Reseting your password..."
+            ? "Resetting your password..."
             : "Continue"}
         </Button>
       </form>
