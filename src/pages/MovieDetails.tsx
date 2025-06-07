@@ -6,13 +6,16 @@ import { SeeAlsoList } from "../components/CardList/SeeAlsoList";
 import { Layout } from "../components/Layout/Layout";
 import { MovieDetailsContainer } from "../components/MovieDetailsContainer/MovieDetailsContainer";
 import { ProjectionPanel } from "../components/ProjectionPanel/ProjectionPanel";
+import { MovieDetailsSkeleton } from "../components/skeleton/MovieDetailsSkeleton/MovieDetailsSkeleton";
 import { getMovieDetails } from "../services/movieService";
 
 export const MovieDetails: React.FC = () => {
   const { movieId } = useParams();
+
   if (!movieId) {
     return <div>Movie ID is required</div>;
   }
+
   const { data: movie, status } = useQuery({
     queryKey: ["movie", movieId],
     queryFn: () => getMovieDetails(movieId),
@@ -20,18 +23,23 @@ export const MovieDetails: React.FC = () => {
   });
 
   if (status === "pending") {
-    return <div>Loading...</div>;
+    return (
+      <Layout>
+        <MovieDetailsSkeleton />;
+      </Layout>
+    );
   }
+
   if (status === "error") {
     return <div>Error loading movie details</div>;
   }
+
   const now = new Date();
   const projectionStartDate = new Date(
     movie.projectionStartDate[0],
     movie.projectionStartDate[1] - 1,
     movie.projectionStartDate[2]
   );
-
   const isUpcoming = projectionStartDate > now;
 
   return (
@@ -49,7 +57,6 @@ export const MovieDetails: React.FC = () => {
               allowFullScreen
             ></iframe>
           </div>
-
           <div className="w-1/2 grid grid-cols-2 gap-4">
             {movie.stills.map((image, index) => (
               <img
@@ -68,7 +75,7 @@ export const MovieDetails: React.FC = () => {
           <div className="w-full lg:w-1/2">
             <MovieDetailsContainer movie={movie} />
           </div>
-          <div className="w-full lg:w-1/2  pl-2">
+          <div className="w-full lg:w-1/2 pl-2">
             {isUpcoming ? (
               <div className="h-[528px] rounded-2xl shadow-md p-6 bg-white space-y-6 font-primary shadow-light-400">
                 <h3 className="text-primary text-2xl text-center font-bold">

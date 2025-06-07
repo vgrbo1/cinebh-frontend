@@ -118,8 +118,15 @@ export function StepNewPassword({
           error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
         />
-        <Button variant="secondary" type="submit" className="w-full mt-4">
-          Continue
+        <Button
+          variant="secondary"
+          type="submit"
+          className="w-full mt-4"
+          disabled={changePasswordMutation.isPending}
+        >
+          {changePasswordMutation.isPending
+            ? "Resetting your password..."
+            : "Continue"}
         </Button>
       </form>
     </>
