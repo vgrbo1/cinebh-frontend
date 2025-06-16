@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router";
+import { useSubscription } from "react-stomp-hooks";
 import { toast } from "react-toastify";
 import { useProjectionDetails } from "../../hooks/useProjectionDetails";
 import { useProjectionSeats } from "../../hooks/useProjectionSeats";
 import { useSeatTypes } from "../../hooks/useSeatTypes";
+import { ApiSeatStatus } from "../../types/api/ApiSeatStatus";
 import { SeatData } from "../../types/model/SeatData";
 import { Button } from "../Button/Button";
 import { Layout } from "../Layout/Layout";
@@ -20,12 +22,14 @@ interface SeatSelectionProps {
   actionLabel: string;
   onActionClick: (selectedSeats: SeatData[]) => void;
   actionDisabled?: boolean;
+  reservedSeatIdsRef: React.RefObject<Set<number>>;
 }
 
 export function SeatSelection({
   actionLabel,
   onActionClick,
   actionDisabled,
+  reservedSeatIdsRef,
 }: SeatSelectionProps) {
   const { projectionId } = useParams();
   const [seats, setSeats] = useState<SeatData[]>([]);
@@ -53,6 +57,33 @@ export function SeatSelection({
       );
     }
   }, [initialSeats]);
+
+  useSubscription(`/topic/projections/${projectionId}/seats`, (message) => {
+    const updatedSeats: ApiSeatStatus[] = JSON.parse(message.body).seats;
+    const mySeatIds = reservedSeatIdsRef.current;
+    setSeats((prev) =>
+      prev.map((seat) => {
+        const updatedSeat = updatedSeats.find((s) => s.id === seat.id);
+        if (!updatedSeat) return seat;
+
+        const nowReserved = !updatedSeat.available;
+
+        if (mySeatIds.has(updatedSeat.id)) {
+          mySeatIds.delete(updatedSeat.id);
+          return seat;
+        }
+
+        if (nowReserved && seat.status === "selected") {
+          toast.info(`Seat ${seat.label} was just reserved by someone else.`);
+        }
+
+        return {
+          ...seat,
+          status: nowReserved ? "reserved" : "available",
+        };
+      })
+    );
+  });
 
   const handleSeatClick = useCallback((seatId: number) => {
     setSeats((currentSeats) => {
