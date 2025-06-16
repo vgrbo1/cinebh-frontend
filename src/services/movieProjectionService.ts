@@ -4,15 +4,24 @@ import axiosInstance from "./axiosInstance";
 
 export const getMovieProjectionSeats = async (projectionId: number) => {
   const response = await axiosInstance.get<ApiSeat[]>(
-    `/api/public/projections/${projectionId}/seats`
+    `/api/projections/${projectionId}/seats`
   );
   return response.data;
 };
 
 export const getDetails = async (projectionId: number) => {
   const response = await axiosInstance.get<ApiMovieProjection>(
-    `/api/public/projections/${projectionId}`
+    `/api/projections/${projectionId}`
   );
-  console.log("Projection details response:", response.data);
+  return response.data;
+};
+
+export const reserveSeats = async (projectionId: number, seatIds: number[]) => {
+  const response = await axiosInstance.post(
+    `/api/projections/${projectionId}/reserve`,
+    {
+      seatIds,
+    }
+  );
   return response.data;
 };
