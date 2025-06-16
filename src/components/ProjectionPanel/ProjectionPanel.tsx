@@ -7,10 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { useFilterOptions } from "../../hooks/useFilterOptions";
 import { useMovieProjections } from "../../hooks/useMovieProjections";
 import { MovieProjection } from "../../types/model/MovieProjection";
 import { generateNextTenDates, toTimeString } from "../../util/dateUtils";
+import { Button } from "../Button/Button";
 import { MultiSelect } from "../MultiSelect/MultiSelect";
 
 export function ProjectionPanel({ movieId }: { movieId: string }) {
@@ -25,6 +27,7 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
     number | null
   >(null);
   const dateScrollRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const scroll = (direction: "left" | "right") => {
     if (dateScrollRef.current) {
@@ -177,6 +180,20 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
             </div>
           ))
         )}
+        <div className="border-t border-customGray pt-4">
+          <Button
+            variant="outline"
+            className="w-full disabled:cursor-not-allowed disabled:border-customGray2 disabled:text-customGray2"
+            disabled={!selectedProjectionId}
+            onClick={() => {
+              if (selectedProjectionId) {
+                navigate(`/projections/${selectedProjectionId}/reserve`);
+              }
+            }}
+          >
+            Reserve Ticket
+          </Button>
+        </div>
       </div>
     </div>
   );
