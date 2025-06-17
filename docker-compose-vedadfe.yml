@@ -3,7 +3,7 @@ services:
     container_name: vedadfe
     image: ffijuljani1/vedad-fe:2.0
     ports:
-      - "127.0.0.1:8081:80"
+      - "127.0.0.1:3000:80"
     networks: vedad-network
 
 networks:
