@@ -107,11 +107,8 @@ export function SeatSelection({
 
       const isSelecting = seatToToggle.status !== "selected";
 
-      const currentWeight = seats.reduce((weight, seat) => {
-        if (seat.status === "selected") {
-          return weight + (seat.seatType === "LOVE" ? 2 : 1);
-        }
-        return weight;
+      const currentWeight = selectedSeats.reduce((weight, seat) => {
+        return weight + (seat.seatType === "LOVE" ? 2 : 1);
       }, 0);
 
       const newSeatWeight = seatToToggle.seatType === "LOVE" ? 2 : 1;
