@@ -61,6 +61,8 @@ export function SeatSelection({
   useSubscription(`/topic/projections/${projectionId}/seats`, (message) => {
     const updatedSeats: ApiSeatStatus[] = JSON.parse(message.body).seats;
     const mySeatIds = reservedSeatIdsRef.current;
+    const seatsStolen: string[] = [];
+
     setSeats((prev) =>
       prev.map((seat) => {
         const updatedSeat = updatedSeats.find((s) => s.id === seat.id);
@@ -74,7 +76,7 @@ export function SeatSelection({
         }
 
         if (nowReserved && seat.status === "selected") {
-          toast.info(`Seat ${seat.label} was just reserved by someone else.`);
+          seatsStolen.push(seat.label);
         }
 
         return {
@@ -83,22 +85,19 @@ export function SeatSelection({
         };
       })
     );
+    seatsStolen.forEach((label) =>
+      toast.info(`Seat ${label} was just reserved by someone else.`)
+    );
   });
 
-  const handleSeatClick = useCallback((seatId: number) => {
-    setSeats((currentSeats) => {
-      const seatToToggle = currentSeats.find((s) => s.id === seatId);
-      if (!seatToToggle) return currentSeats;
+  const handleSeatClick = useCallback(
+    (seatId: number) => {
+      const seatToToggle = seats.find((s) => s.id === seatId);
+      if (!seatToToggle) return;
 
       const isSelecting = seatToToggle.status !== "selected";
 
-      if (!isSelecting) {
-        return currentSeats.map((seat) =>
-          seat.id === seatId ? { ...seat, status: "available" } : seat
-        );
-      }
-
-      const currentWeight = currentSeats.reduce((weight, seat) => {
+      const currentWeight = seats.reduce((weight, seat) => {
         if (seat.status === "selected") {
           return weight + (seat.seatType === "LOVE" ? 2 : 1);
         }
@@ -107,16 +106,21 @@ export function SeatSelection({
 
       const newSeatWeight = seatToToggle.seatType === "LOVE" ? 2 : 1;
 
-      if (currentWeight + newSeatWeight > 6) {
+      if (isSelecting && currentWeight + newSeatWeight > 6) {
         toast.warn("You can select a maximum of 6 seats.");
-        return currentSeats;
+        return;
       }
 
-      return currentSeats.map((seat) =>
-        seat.id === seatId ? { ...seat, status: "selected" } : seat
+      setSeats((prev) =>
+        prev.map((seat) =>
+          seat.id === seatId
+            ? { ...seat, status: isSelecting ? "selected" : "available" }
+            : seat
+        )
       );
-    });
-  }, []);
+    },
+    [seats]
+  );
 
   const selectedSeats = useMemo(
     () => seats.filter((s) => s.status === "selected"),
@@ -161,7 +165,7 @@ export function SeatSelection({
           ) : (
             <SelectedSeats seats={selectedSeats} seatPrices={seatTypes} />
           )}
-          <div className="mt-8">
+          <div className="p-4 md:p-8 mt-8">
             <Button
               variant="secondary"
               className="w-full disabled:bg-customGray2 disabled:cursor-not-allowed"
