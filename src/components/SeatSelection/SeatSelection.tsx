@@ -38,15 +38,12 @@ export function SeatSelection({
   if (!projectionId) {
     return <div>Projection ID is required</div>;
   }
-  const { initialSeats, initialSeatsStatus } = useProjectionSeats(
-    projectionId ? parseInt(projectionId) : 0
-  );
+  const { initialSeats, initialSeatsStatus } = useProjectionSeats(projectionId);
 
   const { seatTypes, seatTypesStatus } = useSeatTypes();
 
-  const { projectionDetails, projectionDetailsStatus } = useProjectionDetails(
-    projectionId ? parseInt(projectionId) : 0
-  );
+  const { projectionDetails, projectionDetailsStatus } =
+    useProjectionDetails(projectionId);
 
   useEffect(() => {
     if (initialSeats) {

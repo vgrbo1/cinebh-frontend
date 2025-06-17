@@ -13,10 +13,11 @@ export function ReserveTickets() {
   const reservedSeatIdsRef = useRef<Set<number>>(new Set());
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-
+  if (!projectionId) {
+    return <div>Projection ID is required</div>;
+  }
   const { mutate, status } = useMutation({
-    mutationFn: (seatIds: number[]) =>
-      reserveSeats(Number(projectionId), seatIds),
+    mutationFn: (seatIds: number[]) => reserveSeats(projectionId, seatIds),
 
     onMutate: (seatIds: number[]) => {
       reservedSeatIdsRef.current = new Set(seatIds);
@@ -24,7 +25,7 @@ export function ReserveTickets() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["projectionSeats", Number(projectionId)],
+        queryKey: ["projectionSeats", projectionId],
       });
       setIsDialogOpen(true);
     },
@@ -44,6 +45,7 @@ export function ReserveTickets() {
           mutate(selectedSeatIds);
         }}
         reservedSeatIdsRef={reservedSeatIdsRef}
+        actionDisabled={status === "pending"}
       />
       <div>
         <Dialog.Root open={isDialogOpen}>

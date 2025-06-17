@@ -24,7 +24,7 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
   const [selectedVenueIds, setSelectedVenueIds] = useState<number[]>([]);
   const [selectedLocationIds, setSelectedLocationIds] = useState<number[]>([]);
   const [selectedProjectionId, setSelectedProjectionId] = useState<
-    number | null
+    string | null
   >(null);
   const dateScrollRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
