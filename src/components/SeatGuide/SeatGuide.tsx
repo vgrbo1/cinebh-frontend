@@ -55,7 +55,7 @@ export const SeatGuide: React.FC<SeatGuideProps> = React.memo(
     return (
       <div className="p-4 md:p-8">
         <h2 className="text-base text-primary mb-6 text-center">Seat Guide</h2>
-        <div className="grid grid-cols-2 gap-y-4 gap-x-1 pb-8 border-b border-customGray">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-1 pb-8 border-b border-customGray">
           <div className="space-y-4">
             {statusRows.map((row) => (
               <div key={row.key} className="flex items-center space-x-4">
