@@ -25,6 +25,8 @@ interface SeatSelectionProps {
   reservedSeatIdsRef: React.RefObject<Set<number>>;
 }
 
+const MAX_SELECTED_SEATS = 6;
+
 export function SeatSelection({
   actionLabel,
   onActionClick,
@@ -58,36 +60,44 @@ export function SeatSelection({
     }
   }, [initialSeats]);
 
+  const selectedSeats = useMemo(
+    () => seats.filter((s) => s.status === "selected"),
+    [seats]
+  );
+
   useSubscription(`/topic/projections/${projectionId}/seats`, (message) => {
-    const updatedSeats: ApiSeatStatus[] = JSON.parse(message.body).seats;
-    const mySeatIds = reservedSeatIdsRef.current;
-    const seatsStolen: string[] = [];
+    const serverSeats: ApiSeatStatus[] = JSON.parse(message.body).seats;
+    const mySelectedIds: Set<number> = new Set(selectedSeats.map((s) => s.id));
 
     setSeats((prev) =>
       prev.map((seat) => {
-        const updatedSeat = updatedSeats.find((s) => s.id === seat.id);
+        const updatedSeat = serverSeats.find((s) => s.id === seat.id);
         if (!updatedSeat) return seat;
 
         const nowReserved = !updatedSeat.available;
 
-        if (mySeatIds.has(updatedSeat.id)) {
-          mySeatIds.delete(updatedSeat.id);
-          return seat;
-        }
-
-        if (nowReserved && seat.status === "selected") {
-          seatsStolen.push(seat.label);
-        }
-
-        return {
-          ...seat,
-          status: nowReserved ? "reserved" : "available",
-        };
+        return { ...seat, status: nowReserved ? "reserved" : "available" };
       })
     );
-    seatsStolen.forEach((label) =>
-      toast.info(`Seat ${label} was just reserved by someone else.`)
-    );
+
+    const myReservedIds = reservedSeatIdsRef.current;
+    const stolenLabels: string[] = serverSeats
+      .filter(
+        (s) =>
+          !s.available && !myReservedIds.has(s.id) && mySelectedIds.has(s.id)
+      )
+      .map((s) => s.row + s.column);
+
+    if (stolenLabels.length) {
+      toast.warn(
+        `Seat${stolenLabels.length > 1 ? "s" : ""} ${stolenLabels.join(
+          ", "
+        )} ` +
+          `${
+            stolenLabels.length > 1 ? "were" : "was"
+          } just reserved by someone else.`
+      );
+    }
   });
 
   const handleSeatClick = useCallback(
@@ -106,8 +116,8 @@ export function SeatSelection({
 
       const newSeatWeight = seatToToggle.seatType === "LOVE" ? 2 : 1;
 
-      if (isSelecting && currentWeight + newSeatWeight > 6) {
-        toast.warn("You can select a maximum of 6 seats.");
+      if (isSelecting && currentWeight + newSeatWeight > MAX_SELECTED_SEATS) {
+        toast.warn(`You can select a maximum of ${MAX_SELECTED_SEATS} seats.`);
         return;
       }
 
@@ -119,11 +129,6 @@ export function SeatSelection({
         )
       );
     },
-    [seats]
-  );
-
-  const selectedSeats = useMemo(
-    () => seats.filter((s) => s.status === "selected"),
     [seats]
   );
 
