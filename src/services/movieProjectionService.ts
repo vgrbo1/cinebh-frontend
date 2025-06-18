@@ -25,3 +25,13 @@ export const reserveSeats = async (projectionId: string, seatIds: number[]) => {
   );
   return response.data;
 };
+
+export const holdSeats = async (projectionId: string, seatIds: number[]) => {
+  const response = await axiosInstance.post<{ checkoutUrl: string }>(
+    `/api/projections/${projectionId}/hold`,
+    {
+      seatIds,
+    }
+  );
+  return response.data;
+};
