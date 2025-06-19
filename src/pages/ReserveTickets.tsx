@@ -48,7 +48,7 @@ export function ReserveTickets() {
         actionDisabled={status === "pending"}
       />
       <div>
-        <Dialog.Root open={isDialogOpen}>
+        <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <Dialog.Overlay className="fixed inset-0 bg-black/50" />
           <Dialog.Portal>
             <Dialog.Content className="fixed font-primary left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/4 rounded-md bg-white p-8 ">
