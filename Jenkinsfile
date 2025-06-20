@@ -78,8 +78,10 @@ pipeline {
                                 docker login registry.praksa.abhapp.com \
                                     --username "$DOCKER_USER" --password-stdin
 
+
                                 docker build -t registry.praksa.abhapp.com/vedad-fe:$SHORT_SHA .
                                 docker push registry.praksa.abhapp.com/vedad-fe:$SHORT_SHA
+
                             '''
                         }
                     }
