@@ -103,6 +103,7 @@ pipeline {
                                     passwordVariable: 'DOCKER_PASS'
                                 )
                             ])  {
+                                writeFile file: '.env', text: "TAG=\"${shortCommit}\"\n"
                                 sh """
                                 echo "$DOCKER_PASS" | docker login registry.praksa.abhapp.com \
                                     --username "$DOCKER_USER" --password-stdin
