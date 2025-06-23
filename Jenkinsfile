@@ -29,7 +29,6 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'cp .env.production .'
                         sh 'npm install'
                         sh 'npm run build'
                     }
@@ -77,8 +76,10 @@ pipeline {
                                 docker login registry.praksa.abhapp.com \
                                     --username "$DOCKER_USER" --password-stdin
 
+
                                 docker build -t registry.praksa.abhapp.com/vedad-fe:$SHORT_SHA .
                                 docker push registry.praksa.abhapp.com/vedad-fe:$SHORT_SHA
+
                             '''
                         }
                     }
