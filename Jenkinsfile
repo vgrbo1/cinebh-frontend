@@ -54,7 +54,6 @@ pipeline {
                     }
 
                     steps {
-                        sh 'cp /host-vedad/.env.production .'
                         sh 'npm install'
                         sh 'npm run build'
                     }
