@@ -10,12 +10,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { useFilterOptions } from "../../hooks/useFilterOptions";
 import { useMovieProjections } from "../../hooks/useMovieProjections";
+import { useAuthStore } from "../../store/useAuthStore";
 import { MovieProjection } from "../../types/model/MovieProjection";
 import { generateNextTenDates, toTimeString } from "../../util/dateUtils";
 import { Button } from "../Button/Button";
 import { MultiSelect } from "../MultiSelect/MultiSelect";
 
 export function ProjectionPanel({ movieId }: { movieId: string }) {
+  const { user } = useAuthStore();
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
@@ -194,30 +196,38 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
         )}
       </div>
       <div className="border-t flex flex-col sm:flex-row gap-4 border-customGray mt-2 pt-4">
-        <Button
-          variant="outline"
-          className="w-full disabled:cursor-not-allowed disabled:border-customGray2 disabled:text-customGray2"
-          disabled={!selectedProjectionId}
-          onClick={() => {
-            if (selectedProjectionId) {
-              navigate(`/projections/${selectedProjectionId}/reserve`);
-            }
-          }}
-        >
-          Reserve Ticket
-        </Button>
-        <Button
-          variant="secondary"
-          className="w-full disabled:cursor-not-allowed disabled:border-transparent disabled:text-white disabled:bg-customGray2"
-          disabled={!selectedProjectionId}
-          onClick={() => {
-            if (selectedProjectionId) {
-              navigate(`/projections/${selectedProjectionId}/buy`);
-            }
-          }}
-        >
-          Buy Ticket
-        </Button>
+        {user ? (
+          <>
+            <Button
+              variant="outline"
+              className="w-full disabled:cursor-not-allowed disabled:border-customGray2 disabled:text-customGray2"
+              disabled={!selectedProjectionId}
+              onClick={() => {
+                if (selectedProjectionId) {
+                  navigate(`/projections/${selectedProjectionId}/reserve`);
+                }
+              }}
+            >
+              Reserve Ticket
+            </Button>
+            <Button
+              variant="secondary"
+              className="w-full disabled:cursor-not-allowed disabled:border-transparent disabled:text-white disabled:bg-customGray2"
+              disabled={!selectedProjectionId}
+              onClick={() => {
+                if (selectedProjectionId) {
+                  navigate(`/projections/${selectedProjectionId}/buy`);
+                }
+              }}
+            >
+              Buy Ticket
+            </Button>
+          </>
+        ) : (
+          <div className="text-center text-customDarkGray w-full">
+            In order to reserve or buy tickets, please login to your account.
+          </div>
+        )}
       </div>
     </div>
   );
