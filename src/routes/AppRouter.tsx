@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router";
 import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute";
 import { About } from "../pages/About";
+import { BuyTickets } from "../pages/BuyTickets";
 import { CurrentlyShowing } from "../pages/CurrentlyShowing";
 import { Home } from "../pages/Home";
 import { MePage } from "../pages/MePage";
 import { MovieDetails } from "../pages/MovieDetails";
 import { Pricing } from "../pages/Pricing";
+import { ReserveTickets } from "../pages/ReserveTickets";
 import { UnauthorizedPage } from "../pages/UnauthorizedPage";
 import { UpcomingMovies } from "../pages/UpcomingMovies";
 import { VerifyEmailPage } from "../pages/VerifyEmailPage";
@@ -29,6 +31,22 @@ function AppRouter() {
         }
       />
       <Route path="/movies/:movieId" element={<MovieDetails />} />
+      <Route
+        path="/projections/:projectionId/reserve"
+        element={
+          <ProtectedRoute>
+            <ReserveTickets />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/projections/:projectionId/buy"
+        element={
+          <ProtectedRoute>
+            <BuyTickets />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

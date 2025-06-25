@@ -1,3 +1,5 @@
+import { MovieProjection } from "./MovieProjection";
+
 export interface MovieWithProjections {
   id: string;
   title: string;
@@ -7,10 +9,5 @@ export interface MovieWithProjections {
   posterUrl: string;
   pgRating: string;
   genres: string[];
-  projections: {
-    id: number;
-    startTime: [number, number];
-    hallName: string;
-    cinemaName: string;
-  }[];
+  projections: MovieProjection[];
 }

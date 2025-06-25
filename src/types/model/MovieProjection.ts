@@ -1,5 +1,5 @@
 export interface MovieProjection {
-  id: number;
+  id: string;
   startTime: [number, number];
   hallName: string;
   cinemaName: string;
