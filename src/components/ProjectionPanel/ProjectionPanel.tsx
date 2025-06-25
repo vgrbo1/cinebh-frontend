@@ -6,34 +6,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { useFilterOptions } from "../../hooks/useFilterOptions";
 import { useMovieProjections } from "../../hooks/useMovieProjections";
 import { MovieProjection } from "../../types/model/MovieProjection";
 import { generateNextTenDates, toTimeString } from "../../util/dateUtils";
+import { Button } from "../Button/Button";
 import { MultiSelect } from "../MultiSelect/MultiSelect";
 
 export function ProjectionPanel({ movieId }: { movieId: string }) {
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [selectedVenues, setSelectedVenues] = useState<string[]>([]);
   const [selectedVenueIds, setSelectedVenueIds] = useState<number[]>([]);
   const [selectedLocationIds, setSelectedLocationIds] = useState<number[]>([]);
   const [selectedProjectionId, setSelectedProjectionId] = useState<
-    number | null
+    string | null
   >(null);
   const dateScrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
-    if (dateScrollRef.current) {
-      dateScrollRef.current.scrollBy({
-        left: direction === "left" ? -120 : 120,
-        behavior: "smooth",
-      });
-    }
-  };
+  const navigate = useNavigate();
 
   const { data: filterOptions, status: filterOptionsStatus } =
     useFilterOptions();
@@ -43,6 +35,26 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
     selectedDate,
     selectedLocationIds,
     selectedVenueIds
+  );
+
+  useEffect(() => {
+    setSelectedProjectionId(null);
+  }, [selectedDate, selectedLocationIds, selectedVenueIds]);
+
+  const locations = filterOptions?.locations ?? [];
+  const venues = filterOptions?.venues ?? [];
+
+  const locationNames = useMemo(
+    () =>
+      locations
+        .filter((l) => selectedLocationIds.includes(l.id))
+        .map((l) => l.cityName),
+    [locations, selectedLocationIds]
+  );
+  const venueNames = useMemo(
+    () =>
+      venues.filter((v) => selectedVenueIds.includes(v.id)).map((v) => v.name),
+    [venues, selectedVenueIds]
   );
 
   if (filterOptionsStatus === "pending" || projectionsStatus === "pending") {
@@ -57,13 +69,16 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
     );
   }
 
-  const locations = filterOptions.locations;
-  const venues = filterOptions.venues;
-
-  const dates = generateNextTenDates();
+  const scroll = (direction: "left" | "right") => {
+    if (dateScrollRef.current) {
+      dateScrollRef.current.scrollBy({
+        left: direction === "left" ? -120 : 120,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const handleLocationChange = (names: string[]) => {
-    setSelectedLocations(names);
     const ids = locations
       .filter((l) => names.includes(l.cityName))
       .map((l) => l.id);
@@ -71,10 +86,10 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
   };
 
   const handleVenueChange = (names: string[]) => {
-    setSelectedVenues(names);
     const ids = venues.filter((v) => names.includes(v.name)).map((v) => v.id);
     setSelectedVenueIds(ids);
   };
+  const dates = generateNextTenDates();
 
   return (
     <div className="h-[528px] rounded-2xl shadow-md p-6 bg-white font-primary shadow-light-400 flex flex-col">
@@ -83,14 +98,14 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
           <MultiSelect
             icon={<FontAwesomeIcon icon={faLocationPin} />}
             options={locations.map((l) => l.cityName)}
-            selected={selectedLocations}
+            selected={locationNames}
             onChange={handleLocationChange}
             placeholder="All Cities"
           />
           <MultiSelect
             icon={<FontAwesomeIcon icon={faBuilding} />}
             options={venues.map((v) => v.name)}
-            selected={selectedVenues}
+            selected={venueNames}
             onChange={handleVenueChange}
             placeholder="All Cinemas"
           />
@@ -177,6 +192,20 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
             </div>
           ))
         )}
+      </div>
+      <div className="border-t border-customGray mt-2 pt-4">
+        <Button
+          variant="outline"
+          className="w-full disabled:cursor-not-allowed disabled:border-customGray2 disabled:text-customGray2"
+          disabled={!selectedProjectionId}
+          onClick={() => {
+            if (selectedProjectionId) {
+              navigate(`/projections/${selectedProjectionId}/reserve`);
+            }
+          }}
+        >
+          Reserve Ticket
+        </Button>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ export const MovieDetails: React.FC = () => {
   if (status === "pending") {
     return (
       <Layout>
-        <MovieDetailsSkeleton />;
+        <MovieDetailsSkeleton />
       </Layout>
     );
   }

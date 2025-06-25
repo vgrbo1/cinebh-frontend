@@ -20,7 +20,7 @@ export function Carousel() {
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [data]);
+  }, [data, currentIndex]);
 
   if (isLoading || !data) {
     return <CarouselSkeleton />;
