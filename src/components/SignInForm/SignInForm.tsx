@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { ERROR_CODES } from "../../constants/errorCodes";
 import { signIn } from "../../services/authService";
 import { useAuthStore } from "../../store/useAuthStore";
+import { ApiErrorResponse } from "../../types/api/ApiErrorResponse";
 import { User } from "../../types/model/User";
 import { SignInFormData, signInSchema } from "../../validation/signInSchema";
 import { Button } from "../Button/Button";
@@ -75,7 +76,7 @@ export const SignInForm = forwardRef<SignInFormHandle, SignInFormProps>(
         setHeading("Sign In Successful! 🎉");
         useAuthStore.getState().setUser(user);
       },
-      onError: (error: any) => {
+      onError: (error: AxiosError<ApiErrorResponse>) => {
         if (error?.response?.data?.code === ERROR_CODES.EMAIL_NOT_VERIFIED) {
           setError("email", {
             type: "server",

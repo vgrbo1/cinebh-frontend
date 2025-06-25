@@ -13,6 +13,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ERROR_CODES } from "../../constants/errorCodes";
 import { signUp } from "../../services/authService";
+import { ApiErrorResponse } from "../../types/api/ApiErrorResponse";
 import { SignUpFormData, signUpSchema } from "../../validation/signUpSchema";
 import { Button } from "../Button/Button";
 import { FormInput } from "../Input/FormInput";
@@ -71,7 +72,7 @@ export const SignUpForm = forwardRef<SignUpFormHandle, SignUpFormProps>(
         setSignUpSuccess(true);
         setHeading("You're all set! 🎉");
       },
-      onError: (error: any) => {
+      onError: (error: AxiosError<ApiErrorResponse>) => {
         if (error?.response?.data?.code === ERROR_CODES.ENTITY_EXISTS) {
           setError("email", {
             type: "server",

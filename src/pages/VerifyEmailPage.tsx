@@ -19,7 +19,7 @@ export function VerifyEmailPage() {
     if (token) {
       verifyEmailMutatation.mutate(token);
     }
-  }, [token]);
+  }, [token, verifyEmailMutatation]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-white bg-primary text-center font-primary px-4">

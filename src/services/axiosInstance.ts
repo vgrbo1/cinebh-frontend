@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-let refreshingToken: Promise<AxiosResponse<any>> | null = null;
+let refreshingToken: Promise<AxiosResponse<void>> | null = null;
 
 axiosInstance.interceptors.request.use((config) => {
   const xsrfToken = Cookie.get("XSRF-TOKEN");
@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-function refreshToken(): Promise<AxiosResponse<any>> {
+function refreshToken(): Promise<AxiosResponse<void>> {
   return axiosInstance.post("/api/public/auth/refresh");
 }
 
@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse): AxiosResponse => {
     return response;
   },
-  async (error): Promise<any> => {
+  async (error): Promise<unknown> => {
     const config = error.config;
 
     if (error.response?.status === 403 && !config._retry) {
