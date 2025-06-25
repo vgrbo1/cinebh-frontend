@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute";
 import { About } from "../pages/About";
+import { BuyTickets } from "../pages/BuyTickets";
 import { CurrentlyShowing } from "../pages/CurrentlyShowing";
 import { Home } from "../pages/Home";
 import { MePage } from "../pages/MePage";
@@ -35,6 +36,14 @@ function AppRouter() {
         element={
           <ProtectedRoute>
             <ReserveTickets />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/projections/:projectionId/buy"
+        element={
+          <ProtectedRoute>
+            <BuyTickets />
           </ProtectedRoute>
         }
       />

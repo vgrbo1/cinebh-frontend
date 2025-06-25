@@ -164,7 +164,7 @@ export function SeatSelection({
           ) : (
             <SelectedSeats seats={selectedSeats} seatPrices={seatTypes} />
           )}
-          <div className="p-4 md:p-8 mt-8">
+          <div className="p-4 md:p-8">
             <Button
               variant="secondary"
               className="w-full disabled:bg-customGray2 disabled:cursor-not-allowed"

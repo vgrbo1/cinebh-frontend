@@ -193,7 +193,7 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
           ))
         )}
       </div>
-      <div className="border-t border-customGray mt-2 pt-4">
+      <div className="border-t flex flex-col sm:flex-row gap-4 border-customGray mt-2 pt-4">
         <Button
           variant="outline"
           className="w-full disabled:cursor-not-allowed disabled:border-customGray2 disabled:text-customGray2"
@@ -205,6 +205,18 @@ export function ProjectionPanel({ movieId }: { movieId: string }) {
           }}
         >
           Reserve Ticket
+        </Button>
+        <Button
+          variant="secondary"
+          className="w-full disabled:cursor-not-allowed disabled:border-transparent disabled:text-white disabled:bg-customGray2"
+          disabled={!selectedProjectionId}
+          onClick={() => {
+            if (selectedProjectionId) {
+              navigate(`/projections/${selectedProjectionId}/buy`);
+            }
+          }}
+        >
+          Buy Ticket
         </Button>
       </div>
     </div>
