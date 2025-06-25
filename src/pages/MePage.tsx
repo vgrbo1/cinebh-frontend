@@ -12,7 +12,7 @@ export function MePage() {
       try {
         const res = await axiosInstance.get("/api/users/me");
         setUser(res.data);
-      } catch (err) {
+      } catch {
         setError("Unauthorized or session expired");
       } finally {
         setLoading(false);

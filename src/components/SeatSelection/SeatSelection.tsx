@@ -35,9 +35,7 @@ export function SeatSelection({
 }: SeatSelectionProps) {
   const { projectionId } = useParams();
   const [seats, setSeats] = useState<SeatData[]>([]);
-  if (!projectionId) {
-    return <div>Projection ID is required</div>;
-  }
+
   const { initialSeats, initialSeatsStatus } = useProjectionSeats(projectionId);
 
   const { seatTypes, seatTypesStatus } = useSeatTypes();
@@ -123,8 +121,12 @@ export function SeatSelection({
         )
       );
     },
-    [seats]
+    [seats, selectedSeats]
   );
+
+  if (!projectionId) {
+    return <div>Projection ID is required</div>;
+  }
 
   const isLoading =
     initialSeatsStatus === "pending" ||

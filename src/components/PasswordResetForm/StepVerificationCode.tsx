@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import clsx from "clsx";
 import {
   createRef,
@@ -10,6 +11,7 @@ import {
 } from "react";
 import { ERROR_CODES } from "../../constants/errorCodes";
 import { sendResetEmail } from "../../services/authService";
+import { ApiErrorResponse } from "../../types/api/ApiErrorResponse";
 import { Button } from "../Button/Button";
 
 interface StepVerificationCodeProps {
@@ -63,7 +65,7 @@ export function StepVerificationCode({
       setCode("");
       setResendTimeout(300);
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError<ApiErrorResponse>) => {
       if (error.response?.data?.code === ERROR_CODES.RESEND_LIMIT) {
         setVerificationCodeError(error.response.data.message);
       }

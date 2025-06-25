@@ -45,7 +45,7 @@ export const AuthDrawer: React.FC<AuthDrawerProps> = ({
       passwordResetRef.current?.resetForm();
       setView("login");
     }
-  }, [isOpen]);
+  }, [isOpen, setView]);
 
   const onClose = () => {
     setIsOpen(false);

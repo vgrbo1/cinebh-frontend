@@ -8,11 +8,14 @@ import { SeatData } from "../types/model/SeatData";
 export function BuyTickets() {
   const { projectionId } = useParams();
   const reservedSeatIdsRef = useRef<Set<number>>(new Set());
-  if (!projectionId) {
-    return <div>Projection ID is required</div>;
-  }
+
   const { mutate, status } = useMutation({
-    mutationFn: (seatIds: number[]) => holdSeats(projectionId, seatIds),
+    mutationFn: (seatIds: number[]) => {
+      if (!projectionId) {
+        return Promise.reject(new Error("Projection ID is missing."));
+      }
+      return holdSeats(projectionId, seatIds);
+    },
 
     onMutate: (seatIds: number[]) => {
       reservedSeatIdsRef.current = new Set(seatIds);
@@ -28,6 +31,9 @@ export function BuyTickets() {
     },
   });
 
+  if (!projectionId) {
+    return <div>Projection ID is required</div>;
+  }
   return (
     <>
       <SeatSelection

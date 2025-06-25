@@ -2,10 +2,12 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { ERROR_CODES } from "../../constants/errorCodes";
 import { sendResetEmail } from "../../services/authService";
+import { ApiErrorResponse } from "../../types/api/ApiErrorResponse";
 import {
   StepEmailData,
   stepEmailSchema,
@@ -38,8 +40,8 @@ export function StepEmail({ setStep, setEmail }: StepEmailProps) {
       reset();
       setStep(2);
     },
-    onError: (error: any) => {
-      if (error.response?.data?.code === ERROR_CODES.RESEND_LIMIT) {
+    onError: (error: AxiosError<ApiErrorResponse>) => {
+      if (error.response?.data.code === ERROR_CODES.RESEND_LIMIT) {
         setError("email", {
           type: "server",
           message: error.response.data.message,

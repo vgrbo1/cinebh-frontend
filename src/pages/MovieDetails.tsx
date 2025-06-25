@@ -12,15 +12,15 @@ import { getMovieDetails } from "../services/movieService";
 export const MovieDetails: React.FC = () => {
   const { movieId } = useParams();
 
+  const { data: movie, status } = useQuery({
+    queryKey: ["movie", movieId],
+    queryFn: () => getMovieDetails(movieId!),
+    enabled: !!movieId,
+  });
+
   if (!movieId) {
     return <div>Movie ID is required</div>;
   }
-
-  const { data: movie, status } = useQuery({
-    queryKey: ["movie", movieId],
-    queryFn: () => getMovieDetails(movieId),
-    enabled: !!movieId,
-  });
 
   if (status === "pending") {
     return (

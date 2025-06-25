@@ -8,7 +8,7 @@ export const SelectedSeats: React.FC<{
 }> = ({ seats, seatPrices }) => {
   const totalPrice = useMemo(
     () => seats.reduce((sum, seat) => sum + seatPrices[seat.seatType].price, 0),
-    [seats]
+    [seats, seatPrices]
   );
   const seatLabels = useMemo(
     () => seats.map((s) => s.label).join(", "),

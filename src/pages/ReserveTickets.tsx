@@ -13,12 +13,14 @@ export function ReserveTickets() {
   const reservedSeatIdsRef = useRef<Set<number>>(new Set());
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-  if (!projectionId) {
-    return <div>Projection ID is required</div>;
-  }
-  const { mutate, status } = useMutation({
-    mutationFn: (seatIds: number[]) => reserveSeats(projectionId, seatIds),
 
+  const { mutate, status } = useMutation({
+    mutationFn: (seatIds: number[]) => {
+      if (!projectionId) {
+        return Promise.reject(new Error("Projection ID is missing."));
+      }
+      return reserveSeats(projectionId, seatIds);
+    },
     onMutate: (seatIds: number[]) => {
       reservedSeatIdsRef.current = new Set(seatIds);
     },
@@ -36,6 +38,9 @@ export function ReserveTickets() {
     },
   });
 
+  if (!projectionId) {
+    return <div>Projection ID is required</div>;
+  }
   return (
     <>
       <SeatSelection
