@@ -76,7 +76,6 @@ pipeline {
                                 docker login registry.praksa.abhapp.com \
                                     --username "$DOCKER_USER" --password-stdin
 
-
                                 docker build -t registry.praksa.abhapp.com/vedad-fe:$SHORT_SHA .
                                 docker push registry.praksa.abhapp.com/vedad-fe:$SHORT_SHA
 
@@ -115,6 +114,42 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+    }
+    post {
+        success {
+            script {
+                withCredentials([
+                string(credentialsId: 'slack-bot-token', variable: 'SLACK_TOKEN')
+            ]) {
+                    sh """
+                    curl -X POST https://slack.com/api/chat.postMessage \
+                        -H "Authorization: Bearer \$SLACK_TOKEN" \
+                        -H "Content-type: application/json" \
+                        --data '{
+                            "channel": "#deploy",
+                            "text": "*Build Succeeded* for main"
+                        }'
+                """
+            }
+            }
+        }
+        failure {
+            script {
+                withCredentials([
+                string(credentialsId: 'slack-bot-token', variable: 'SLACK_TOKEN')
+            ]) {
+                    sh """
+                    curl -X POST https://slack.com/api/chat.postMessage \
+                        -H "Authorization: Bearer \$SLACK_TOKEN" \
+                        -H "Content-type: application/json" \
+                        --data '{
+                            "channel": "#deploy",
+                            "text": ":x: *Build Failed* for main"
+                        }'
+                """
+            }
             }
         }
     }
