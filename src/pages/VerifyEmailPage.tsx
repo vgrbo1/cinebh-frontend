@@ -16,7 +16,7 @@ export function VerifyEmailPage() {
   });
 
   useEffect(() => {
-    if (token) {
+    if (token && verifyEmailMutatation.status === "idle") {
       verifyEmailMutatation.mutate(token);
     }
   }, [token, verifyEmailMutatation]);

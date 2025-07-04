@@ -11,6 +11,7 @@ import { ReserveTickets } from "../pages/ReserveTickets";
 import { UnauthorizedPage } from "../pages/UnauthorizedPage";
 import { UpcomingMovies } from "../pages/UpcomingMovies";
 import { VerifyEmailPage } from "../pages/VerifyEmailPage";
+import { ProjectionWsProvider } from "../util/ProjectionWsProvider";
 
 function AppRouter() {
   return (
@@ -32,21 +33,16 @@ function AppRouter() {
       />
       <Route path="/movies/:movieId" element={<MovieDetails />} />
       <Route
-        path="/projections/:projectionId/reserve"
+        path="/projections/:projectionId"
         element={
           <ProtectedRoute>
-            <ReserveTickets />
+            <ProjectionWsProvider />
           </ProtectedRoute>
         }
-      />
-      <Route
-        path="/projections/:projectionId/buy"
-        element={
-          <ProtectedRoute>
-            <BuyTickets />
-          </ProtectedRoute>
-        }
-      />
+      >
+        <Route path="reserve" element={<ReserveTickets />} />
+        <Route path="buy" element={<BuyTickets />} />
+      </Route>
     </Routes>
   );
 }
