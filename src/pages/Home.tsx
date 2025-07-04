@@ -30,10 +30,10 @@ export function Home() {
         <Dialog.Portal>
           <Dialog.Content className="fixed font-primary left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/4 rounded-md bg-white p-8 z-50">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-primary">
+              <Dialog.Title className="text-xl font-bold text-primary">
                 Payment Successful!
-              </h2>
-              <Dialog.Close>
+              </Dialog.Title>
+              <Dialog.Close className="cursor-pointer">
                 <FontAwesomeIcon icon={faXmark} />
               </Dialog.Close>
             </div>
