@@ -1,3 +1,5 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
@@ -57,9 +59,14 @@ export function ReserveTickets() {
           <Dialog.Overlay className="fixed inset-0 bg-black/50" />
           <Dialog.Portal>
             <Dialog.Content className="fixed font-primary left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/4 rounded-md bg-white p-8 ">
-              <h2 className="text-xl font-bold text-primary mb-4">
-                Seats Reserved!
-              </h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-primary">
+                  Seats Reserved!
+                </h2>
+                <Dialog.Close>
+                  <FontAwesomeIcon icon={faXmark} />
+                </Dialog.Close>
+              </div>
               <p className="text-center max-w-sm text-sm text-customDarkGray">
                 Your reservation confirmation has been sent to your email. You
                 can also see your reservation details on your User profile and
