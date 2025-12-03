@@ -22,7 +22,7 @@ export const sendResetEmail = async (email: string) => {
     "/api/public/auth/password/reset/send",
     {
       email,
-    }
+    },
   );
   return response.data;
 };
@@ -33,7 +33,7 @@ export const changePassword = async (newPassword: string, code: string) => {
     {
       newPassword,
       code,
-    }
+    },
   );
   return response.data;
 };
@@ -41,7 +41,7 @@ export const changePassword = async (newPassword: string, code: string) => {
 export const signIn = async (
   email: string,
   password: string,
-  isRememberMe: boolean
+  isRememberMe: boolean,
 ) => {
   const response = await axiosInstance.post<User>("/api/public/auth/login", {
     email,
@@ -53,5 +53,10 @@ export const signIn = async (
 
 export const logoutUser = async () => {
   const response = await axiosInstance.post("/api/public/auth/logout");
+  return response.data;
+};
+
+export const getCurrentUser = async () => {
+  const response = await axiosInstance.get<User>("/api/users/me");
   return response.data;
 };
